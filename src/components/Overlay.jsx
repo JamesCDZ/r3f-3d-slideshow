@@ -92,10 +92,10 @@ export const Overlay = () => {
                   />
                 </svg>
                 <p className="font-semibold text-3xl">
-                  ${scenes[displaySlide].price.toLocaleString()}
+                  £{scenes[displaySlide].price.toLocaleString()}
                 </p>
               </div>
-              <p className="text-sm opacity-80">After Federal Tax Credit</p>
+              <p className="text-sm opacity-80">Average savings</p>
             </div>
             <div className="flex flex-col items-center">
               <div className="flex items-center gap-2">
@@ -114,10 +114,10 @@ export const Overlay = () => {
                   />
                 </svg>
                 <p className="font-semibold text-3xl">
-                  {scenes[displaySlide].range}km
+                  {scenes[displaySlide].range}
                 </p>
               </div>
-              <p className="text-sm opacity-80">With one single charge</p>
+              <p className="text-sm opacity-80">Total switches</p>
             </div>
           </div>
         </div>

@@ -20,24 +20,24 @@ export const scenes = [
     name: "Data Driven Deals",
     description:
       "We use the highest quality data to give you the best deals in your area",
-    price: 72000,
-    range: 660,
+    price: 260,
+    range: "50k",
   },
   {
     path: "models/model3_scene.glb",
     mainColor: "#c0ffe1",
     name: "Your home",
     description: "Tell us more about your house",
-    price: 29740,
-    range: 576,
+    price: 260,
+    range: "50k",
   },
   {
     path: "models/semi_scene.glb",
     mainColor: "#ffdec0",
     name: "Confirm Details",
     description: "Let's find you some broadband deals",
-    price: 150000,
-    range: 800,
+    price: 260,
+    range: "50k",
   },
 ];
 
