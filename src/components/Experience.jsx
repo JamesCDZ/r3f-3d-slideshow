@@ -17,9 +17,9 @@ export const scenes = [
   {
     path: "models/cybertruck_scene.glb",
     mainColor: "#f9c0ff",
-    name: "Data Driven Deals",
+    name: "Welcome to the lab",
     description:
-      "We use the highest quality data to give you the best deals in your area",
+      "We use the highest quality data to give you the best broadband deals",
     price: 260,
     range: "50k",
   },
