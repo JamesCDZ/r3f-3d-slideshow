@@ -17,25 +17,24 @@ export const scenes = [
   {
     path: "models/cybertruck_scene2.glb",
     mainColor: "#f9c0ff",
-    name: "The Broadband Lab",
-    description:
-      "We are a data focused broadband comparison service.",
+    name: "Welcome",
+    description: "Get started with Broadband Lab",
     price: 260,
     range: "50k",
   },
   {
     path: "models/model3_scene2.glb",
     mainColor: "#c0ffe1",
-    name: "Your home",
-    description: "Tell us more about your house",
+    name: "Your Address",
+    description: "Tell us where you live",
     price: 260,
     range: "50k",
   },
   {
     path: "models/semi_scene2.glb",
     mainColor: "#ffdec0",
-    name: "Confirm Details",
-    description: "Let's find you some broadband deals",
+    name: "Contact Details",
+    description: "Get your personalized deals",
     price: 260,
     range: "50k",
   },
@@ -108,6 +107,7 @@ const CameraHandler = ({ slideDistance }) => {
     moveToSlide();
     lastSlide.current = slide;
   }, [slide]);
+  
   return (
     <CameraControls
       ref={cameraControls}
@@ -134,18 +134,22 @@ export const Experience = () => {
       max: 10,
     },
   });
+  
   return (
     <>
       <ambientLight intensity={0.2} />
       <Environment preset={"city"} />
       <CameraHandler slideDistance={slideDistance} />
+      
       {/* MAIN WORLD */}
       <group>
+        {/* Welcome screen - Sphere */}
         <mesh position-y={viewport.height / 2 + 1.5}>
           <sphereGeometry args={[1, 32, 32]} />
           <MeshDistortMaterial color={scenes[0].mainColor} speed={3} />
         </mesh>
 
+        {/* Address screen - Box */}
         <mesh
           position-x={viewport.width + slideDistance}
           position-y={viewport.height / 2 + 1.5}
@@ -154,6 +158,7 @@ export const Experience = () => {
           <MeshDistortMaterial color={scenes[1].mainColor} speed={3} />
         </mesh>
 
+        {/* Contact details screen - Dodecahedron */}
         <Dodecahedron
           position-x={2 * (viewport.width + slideDistance)}
           position-y={viewport.height / 2 + 1.5}
@@ -174,6 +179,7 @@ export const Experience = () => {
         fadeDistance={50}
         fadeStrength={5}
       />
+      
       {scenes.map((scene, index) => (
         <mesh
           key={index}
