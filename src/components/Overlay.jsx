@@ -120,7 +120,7 @@ export const Overlay = () => {
               Welcome to Energy Lab
             </h1>
             <p className="text-lg md:text-xl opacity-80 mb-8 max-w-2xl mx-auto">
-            We monitor real-time pricing data from every major provider to guarantee you access to the market's best broadband deals.
+            We monitor real-time pricing data from every major provider to guarantee you access to the market's best energy deals.
             </p>
             <button
               onClick={nextSlide}
@@ -279,7 +279,7 @@ export const Overlay = () => {
         <img 
           src="/logo.png" 
           className="w-80 mx-auto mt-8"
-          alt="Broadband Lab"
+          alt="Energy Lab"
         />
         
         {/* Navigation arrows - only show if not on form slides */}
