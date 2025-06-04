@@ -149,7 +149,7 @@ export const Overlay = () => {
                     type="text"
                     value={postcode}
                     onChange={(e) => setPostcode(e.target.value.toUpperCase())}
-                    placeholder="Enter your postcode"
+                    placeholder="Enter your postcode eg:KW15 1GW"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pointer-events-auto text-black"
                     disabled={isLoadingAddresses}
                   />
