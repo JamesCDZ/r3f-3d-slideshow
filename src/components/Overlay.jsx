@@ -277,7 +277,7 @@ export const Overlay = () => {
         } transition-opacity duration-1000`}
       >
         <img 
-          src="https://broadband.swicc.co.uk/images/broadbandlab.webp" 
+          src="/logo.png" 
           className="w-80 mx-auto mt-8"
           alt="Broadband Lab"
         />
