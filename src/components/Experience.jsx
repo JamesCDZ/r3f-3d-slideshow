@@ -19,7 +19,7 @@ export const scenes = [
     mainColor: "#f9c0ff",
     name: "Welcome to the lab",
     description:
-      "We use the highest quality data to give you the best broadband deals",
+      "We are a data focused broadband comparison service.",
     price: 260,
     range: "50k",
   },
