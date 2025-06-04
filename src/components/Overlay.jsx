@@ -273,22 +273,19 @@ export const Overlay = () => {
   return (
     <>
       <div
-        className={`fixed z-10 top-0 left-0 bottom-0 right-0 flex flex-col pointer-events-none text-black ${
+        className={`fixed z-10 top-0 left-0 bottom-0 right-0 flex flex-col justify-between pointer-events-none text-black ${
           visible ? "" : "opacity-0"
         } transition-opacity duration-1000`}
       >
-        {/* Logo at the top */}
-        <div className="flex-shrink-0 p-8">
-          <img 
-            src="https://broadband.swicc.co.uk/images/broadbandlab.webp" 
-            className="w-80 mx-auto"
-            alt="Broadband Lab"
-          />
-        </div>
+        <img 
+          src="https://broadband.swicc.co.uk/images/broadbandlab.webp" 
+          className="w-80 mx-auto mt-8"
+          alt="Broadband Lab"
+        />
         
         {/* Navigation arrows - only show if not on form slides */}
         {displaySlide === 0 && (
-          <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-between p-4 z-20">
+          <div className="absolute top-0 bottom-0 left-0 right-0 flex-1 flex items-center justify-between p-4">
             <svg
               onClick={prevSlide}
               xmlns="http://www.w3.org/2000/svg"
@@ -315,10 +312,19 @@ export const Overlay = () => {
           </div>
         )}
 
-        {/* Main content area - centered */}
-        <div className="flex-1 flex items-center justify-center p-4">
-          <div className="rounded-2xl p-8 max-w-2xl w-full">
-            {renderSlideContent()}
+        <div className="bg-gradient-to-t from-white/90 pt-20 pb-10 md:pb-24 p-4 flex items-center flex-col">
+          {renderSlideContent()}
+          
+          {/* Progress indicator */}
+          <div className="flex gap-2 mt-8">
+            {scenes.map((_, index) => (
+              <div
+                key={index}
+                className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                  index === displaySlide ? "bg-blue-600" : "bg-gray-300"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
