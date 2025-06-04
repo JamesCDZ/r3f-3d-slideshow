@@ -119,6 +119,7 @@ export const Overlay = () => {
               </div>
               <p className="text-sm opacity-80">Total switches</p>
             </div>
+              <input className="pointer-events-auto" type="text"/>
           </div>
         </div>
       </div>
