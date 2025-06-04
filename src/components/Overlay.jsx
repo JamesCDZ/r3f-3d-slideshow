@@ -95,7 +95,7 @@ export const Overlay = () => {
     
     // Handle form submission here (send to API, etc.)
     console.log("Form submitted:", { ...formData, ...contactData });
-    alert("Thank you! We'll be in touch soon with your broadband options.");
+    alert("Thank you! We'll be in touch soon with your energy options.");
   };
 
   const nextSlide = () => {
@@ -117,15 +117,14 @@ export const Overlay = () => {
         return (
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl mb-4 font-extrabold">
-              Welcome to Broadband Lab
+              Welcome to Energy Lab
             </h1>
             <p className="text-lg md:text-xl opacity-80 mb-8 max-w-2xl mx-auto">
-              Find the best broadband deals for your home. We'll help you compare prices, 
-              speeds, and providers to save you money and time.
+            We monitor real-time pricing data from every major provider to guarantee you access to the market's best broadband deals.
             </p>
             <button
               onClick={nextSlide}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+              className="bg-[#000000] hover:bg-[#FFFFFF] text-white hover:text-black px-8 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
             >
               Get Started
             </button>
@@ -140,7 +139,7 @@ export const Overlay = () => {
               What's your address?
             </h1>
             <p className="text-opacity-80 mb-6 text-center">
-              Enter your postcode to find available broadband deals in your area
+              Enter your postcode to find available energy deals in your area
             </p>
             
             {!addresses.length ? (
@@ -161,7 +160,7 @@ export const Overlay = () => {
                 <button
                   type="submit"
                   disabled={isLoadingAddresses}
-                  className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+                  className="w-full bg-[#000000] hover:bg-[#FFFFFF] text-white hover:text-black  disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
                 >
                   {isLoadingAddresses ? "Looking up..." : "Find Addresses"}
                 </button>
@@ -202,7 +201,7 @@ export const Overlay = () => {
               Almost there!
             </h1>
             <p className="text-opacity-80 mb-6 text-center">
-              Enter your details to get personalized broadband recommendations
+              Enter your details to get personalized energy recommendations
             </p>
             
             <form onSubmit={handleContactSubmit} className="space-y-4">
@@ -256,7 +255,7 @@ export const Overlay = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+                  className="flex-1 bg-[#4A9B8E] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
                 >
                   Get My Deals
                 </button>
@@ -314,18 +313,6 @@ export const Overlay = () => {
 
         <div className="bg-gradient-to-t from-white/90 pt-20 pb-10 md:pb-24 p-4 flex items-center flex-col">
           {renderSlideContent()}
-          
-          {/* Progress indicator */}
-          <div className="flex gap-2 mt-8">
-            {scenes.map((_, index) => (
-              <div
-                key={index}
-                className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                  index === displaySlide ? "bg-blue-600" : "bg-gray-300"
-                }`}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </>
