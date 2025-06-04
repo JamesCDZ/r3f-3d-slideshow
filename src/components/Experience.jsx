@@ -17,9 +17,9 @@ export const scenes = [
   {
     path: "models/cybertruck_scene.glb",
     mainColor: "#f9c0ff",
-    name: "Amazing UK Energy Deals",
+    name: "Amazing Broadband Deals",
     description:
-      "Compare The Best Gas & Electricity Deals In Your Area",
+      "The smart way to find the best Gas & Electricity Deals In Your Area",
     price: 72000,
     range: 660,
   },
