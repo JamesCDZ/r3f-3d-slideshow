@@ -17,7 +17,7 @@ export const scenes = [
   {
     path: "models/cybertruck_scene2.glb",
     mainColor: "#f9c0ff",
-    name: "Welcome to the lab",
+    name: "The Broadband Lab",
     description:
       "We are a data focused broadband comparison service.",
     price: 260,
