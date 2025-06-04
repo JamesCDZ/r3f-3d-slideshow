@@ -29,7 +29,7 @@ export const Overlay = () => {
         } transition-opacity duration-1000`}
       >
      
-        <img src="https://preview.fontget.com/tmp/6840371b199ea.png" className="w-80 mx-auto mt-8"/>
+        <img src="https://broadband.swicc.co.uk/images/broadbandlab.webp" className="w-80 mx-auto mt-8"/>
         <div className="absolute top-0 bottom-0 left-0 right-0 flex-1 flex items-center justify-between p-4">
           <svg
             onClick={() =>
