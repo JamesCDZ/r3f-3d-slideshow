@@ -17,9 +17,9 @@ export const scenes = [
   {
     path: "models/cybertruck_scene.glb",
     mainColor: "#f9c0ff",
-    name: "Amazing Broadband Deals",
+    name: "Data Driven Deals",
     description:
-      "The smart way to find the best Gas & Electricity Deals In Your Area",
+      "We use the highest quality data to give you the best deals in your area",
     price: 72000,
     range: 660,
   },
