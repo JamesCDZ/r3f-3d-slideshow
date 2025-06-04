@@ -31,7 +31,7 @@ export const Overlay = () => {
      
         <img src="https://broadband.swicc.co.uk/images/broadbandlab.webp" className="w-80 mx-auto mt-8"/>
         <div className="absolute top-0 bottom-0 left-0 right-0 flex-1 flex items-center justify-between p-4">
-          <svg
+          {/* <svg
             onClick={() =>
               setSlide((prev) => (prev > 0 ? prev - 1 : scenes.length - 1))
             }
@@ -65,7 +65,7 @@ export const Overlay = () => {
               strokeLinejoin="round"
               d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
             />
-          </svg>
+          </svg> */}
         </div>
         <div className="bg-gradient-to-t from-white/90 pt-20 pb-10 md:pb-24 p-4 flex items-center flex-col text-center">
           <h1 className="text-4xl md:text-6xl mb-2 font-extrabold">
