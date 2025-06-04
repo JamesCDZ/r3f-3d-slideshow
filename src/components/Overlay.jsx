@@ -67,11 +67,11 @@ export const Overlay = () => {
             />
           </svg>
         </div>
-        <div className="bg-gradient-to-t from-white/90 pt-20 pb-10 p-4 flex items-center flex-col text-center">
-          <h1 className="text-4xl mb-2 font-extrabold">
+        <div className="bg-gradient-to-t from-white/90 pt-20 pb-10 md:pb-24 p-4 flex items-center flex-col text-center">
+          <h1 className="text-4xl md:text-6xl mb-2 font-extrabold">
             {scenes[displaySlide].name}
           </h1>
-          <p className="text-opacity-60 italic">
+          <p className="text-opacity-60 md:text-xl italic">
             {scenes[displaySlide].description}
           </p>
           <div className="flex items-center gap-12 mt-10">
