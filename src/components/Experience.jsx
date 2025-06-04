@@ -17,9 +17,9 @@ export const scenes = [
   {
     path: "models/cybertruck_scene.glb",
     mainColor: "#f9c0ff",
-    name: "Cybertruck",
+    name: "Amazing UK Energy Deals",
     description:
-      "Better utility than a truck with more performance than a sports car",
+      "Compare The Best Gas & Electricity Deals In Your Area",
     price: 72000,
     range: 660,
   },
