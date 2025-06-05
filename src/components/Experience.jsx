@@ -15,7 +15,7 @@ import { Scene } from "./Scene";
 
 export const scenes = [
   {
-    path: "models/cybertruck_scene2.glb",
+    path: "models/lab2.glb",
     mainColor: "#f9c0ff",
     name: "The Broadband Lab",
     description:
