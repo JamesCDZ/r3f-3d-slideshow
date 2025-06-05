@@ -17,9 +17,9 @@ export const scenes = [
   {
     path: "models/lab2.glb",
     mainColor: "#f9c0ff",
-    name: "The Broadband Lab",
+    name: "The Energy Lab",
     description:
-      "We are a data focused broadband comparison service.",
+      "We are a data focused energy comparison service.",
     price: 260,
     range: "50k",
   },
@@ -35,7 +35,7 @@ export const scenes = [
     path: "models/semi_scene2.glb",
     mainColor: "#ffdec0",
     name: "Confirm Details",
-    description: "Let's find you some broadband deals",
+    description: "Let's find you some energy deals",
     price: 260,
     range: "50k",
   },
