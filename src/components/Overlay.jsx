@@ -117,7 +117,7 @@ export const Overlay = () => {
         return (
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl mb-4 font-extrabold">
-              Welcome to Energy Lab
+              Energy Lab
             </h1>
             <p className="text-lg md:text-xl opacity-80 mb-8 max-w-2xl mx-auto">
             We monitor real-time pricing data from every major provider to guarantee you access to the market's best energy deals.
