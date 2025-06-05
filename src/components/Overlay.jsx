@@ -354,7 +354,6 @@ export const Overlay = () => {
                 
                 {/* Fade effect indicators */}
                 <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-white to-transparent pointer-events-none"></div>
-                <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
               </div>
 
               {/* Simple completion message */}
