@@ -38,15 +38,11 @@ export const Overlay = () => {
     { name: "British Gas", delay: 800 },
     { name: "EDF Energy", delay: 1600 },
     { name: "E.ON Next", delay: 2400 },
-    { name: "Scottish Power", delay: 3200 },
+    { name: "Scottish Power", delay: 2200 },
     { name: "SSE Energy", delay: 4000 },
-    { name: "Octopus Energy", delay: 4800 },
+    { name: "Octopus Energy", delay: 2800 },
     { name: "Shell Energy", delay: 5600 },
-    { name: "Utility Warehouse", delay: 6400 },
-    { name: "Bulb Energy", delay: 7200 },
-    { name: "Pure Planet", delay: 8000 },
-    { name: "Green Supplier", delay: 8800 },
-    { name: "Together Energy", delay: 9600 },
+    { name: "Utility Warehouse", delay: 3400 },
   ];
 
   useEffect(() => {
