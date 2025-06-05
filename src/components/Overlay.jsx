@@ -38,11 +38,11 @@ export const Overlay = () => {
     { name: "British Gas", delay: 800 },
     { name: "EDF Energy", delay: 1600 },
     { name: "E.ON Next", delay: 2400 },
-    { name: "Scottish Power", delay: 2200 },
-    { name: "SSE Energy", delay: 4000 },
-    { name: "Octopus Energy", delay: 2800 },
+    { name: "Scottish Power", delay: 2800 },
+    { name: "SSE Energy", delay: 3200 },
+    { name: "Octopus Energy", delay: 4800 },
     { name: "Shell Energy", delay: 5600 },
-    { name: "Utility Warehouse", delay: 3400 },
+    { name: "Utility Warehouse", delay: 6400 },
   ];
 
   useEffect(() => {
@@ -245,7 +245,7 @@ export const Overlay = () => {
 
       case 2:
         // Deal Loading Animation or Contact Details
-        if (isLoadingDeals || !showContactForm) {
+        if (true || !showContactForm) {
           return (
             <div className="max-w-lg mx-auto text-center">
               {/* Simplified header */}
@@ -262,7 +262,7 @@ export const Overlay = () => {
               <div className="mb-6">
                 <div className="bg-gray-200 rounded-full h-2 mb-3 overflow-hidden">
                   <div 
-                    className="bg-blue-500 h-2 rounded-full transition-all duration-700 ease-out"
+                    className="bg-[#4A9B8E] h-2 rounded-full transition-all duration-700 ease-out"
                     style={{ 
                       width: `${(completedProviders.length / ukEnergyProviders.length) * 100}%` 
                     }}
