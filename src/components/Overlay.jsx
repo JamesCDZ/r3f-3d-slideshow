@@ -167,11 +167,10 @@ export const Overlay = () => {
         return (
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl mb-4 font-extrabold">
-              Energy Lab
+              The Energy Lab
             </h1>
             <p className="text-lg md:text-xl opacity-80 mb-8 max-w-2xl mx-auto">
-            We monitor real-time pricing data from every major provider to guarantee you access to the market's best energy deals.
-            </p>
+            We check the small print so you don't have to - exit fees, price rises, and contract terms explained clearly for each deal</p>
             <button
               onClick={nextSlide}
               className="bg-[#000000] hover:bg-[#FFFFFF] text-white hover:text-black px-8 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
