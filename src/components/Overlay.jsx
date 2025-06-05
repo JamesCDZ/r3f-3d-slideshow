@@ -244,7 +244,7 @@ export const Overlay = () => {
 
       case 2:
         // Deal Loading Animation or Contact Details
-        if (true || !showContactForm) {
+        if (isLoadingDeals || !showContactForm) {
           return (
             <div className="max-w-lg mx-auto text-center">
               {/* Simplified header */}
