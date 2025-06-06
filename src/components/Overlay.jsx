@@ -281,7 +281,7 @@ export const Overlay = () => {
                   <div>
                     <p className="text-sm font-medium">We will never spam you</p>
                     <p className="text-xs text-green-700">Secure data that's only used to find deals that save you money</p>
-
+                    
                   </div>
                 </div>
               </div>
@@ -451,7 +451,7 @@ export const Overlay = () => {
           </div>
         )}
 
-        <div className="bg-gradient-to-t from-white/90 pt-10 pb-10 md:pb-24 p-4 flex items-center flex-col">
+        <div className="bg-gradient-to-t from-white/90 pt-20 pb-24 md:pb-24 p-4 flex items-center flex-col">
           {renderSlideContent()}
         </div>
       </div>
