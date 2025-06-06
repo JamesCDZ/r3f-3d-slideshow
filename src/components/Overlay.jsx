@@ -28,6 +28,14 @@ export const Overlay = () => {
   const [isLoadingAddresses, setIsLoadingAddresses] = useState(false);
   const [postcodeError, setPostcodeError] = useState("");
   const [marketingOptOut, setMarketingOptOut] = useState(false);
+  
+  // Contact form state
+  const [contactDetails, setContactDetails] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: ""
+  });
 
   useEffect(() => {
     setTimeout(() => {
@@ -91,18 +99,27 @@ export const Overlay = () => {
       lastName: formElement.lastName.value,
       email: formElement.email.value,
       phone: formElement.phone.value,
+    };
+    
+    setContactDetails(contactData);
+    setFormData(prev => ({ ...prev, ...contactData }));
+    setSlide(3); // Move to data preferences slide
+  };
+
+  const handleFinalSubmit = () => {
+    const finalData = {
+      ...formData,
+      ...contactDetails,
       marketingOptOut: marketingOptOut,
     };
     
-    setFormData(prev => ({ ...prev, ...contactData }));
-    
     // Handle form submission here (send to API, etc.)
-    console.log("Form submitted:", { ...formData, ...contactData });
+    console.log("Form submitted:", finalData);
     alert("Thank you! We'll be in touch soon with your energy options.");
   };
 
   const nextSlide = () => {
-    if (slide < scenes.length - 1) {
+    if (slide < 3) { // Updated to account for 4 slides (0,1,2,3)
       setSlide(slide + 1);
     }
   };
@@ -197,15 +214,22 @@ export const Overlay = () => {
         );
 
       case 2:
-        // Contact Details
+        // Contact Details - First Part
         return (
           <div className="max-w-md mx-auto">
-            <h1 className="text-3xl md:text-4xl mb-4 font-extrabold text-center">
-              Almost there!
-            </h1>
-            <p className="text-opacity-80 mb-6 text-center">
-              Enter your details to get personalized energy recommendations
-            </p>
+            <div className="text-center mb-6">
+              <div className="flex items-center justify-center mb-2">
+                <svg className="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <h1 className="text-3xl md:text-4xl font-extrabold">
+                  Your Account
+                </h1>
+              </div>
+              <p className="text-opacity-80">
+                Complete your account to unlock exclusive energy deals
+              </p>
+            </div>
             
             <form onSubmit={handleContactSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -248,32 +272,7 @@ export const Overlay = () => {
                 </div>
               )}
               
-              {/* Marketing opt-out checkbox */}
-              <div className="flex items-start space-x-3 py-2">
-                <input
-                  type="checkbox"
-                  id="marketingOptOut"
-                  checked={marketingOptOut}
-                  onChange={(e) => setMarketingOptOut(e.target.checked)}
-                  className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 pointer-events-auto"
-                />
-                <label htmlFor="marketingOptOut" className="text-sm text-gray-700 leading-tight">
-                  Tomorrow Media Group would like to send you information by email, telephone and SMS on our other products & services which may be of interest. Tick here if you would rather not receive these.
-                </label>
-              </div>
-              
-              {/* Disclaimer */}
-              <div className="bg-gray-50 p-3 rounded-lg border">
-                <p className="text-xs text-gray-600 leading-tight">
-                  By clicking "Get My Deals", you confirm that you are over 18 years of age, responsible for paying your energy bills and agree to receive direct marketing by telephone from our partners listed in our Privacy Policy. You can opt-out of marketing at anytime by emailing "stop" to{" "}
-                  <a href="mailto:dataprotection@tomorrowmediagroup.com" className="text-blue-600 underline">
-                    dataprotection@tomorrowmediagroup.com
-                  </a>
-                  .
-                </p>
-              </div>
-              
-              <div className="flex gap-4 pt-2">
+              <div className="flex gap-4 pt-4">
                 <button
                   type="button"
                   onClick={prevSlide}
@@ -285,10 +284,108 @@ export const Overlay = () => {
                   type="submit"
                   className="flex-1 bg-[#4A9B8E] hover:bg-[#3A8B7E] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
                 >
-                  Get My Deals
+                  Continue
                 </button>
               </div>
             </form>
+          </div>
+        );
+
+      case 3:
+        // Data Preferences - Final Step
+        return (
+          <div className="max-w-lg mx-auto">
+            <div className="text-center mb-6">
+              <div className="flex items-center justify-center mb-2">
+                <svg className="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                <h1 className="text-3xl md:text-4xl font-extrabold">
+                  Privacy Settings
+                </h1>
+              </div>
+              <p className="text-opacity-80">
+                Manage your data preferences and complete your registration
+              </p>
+            </div>
+            
+            {/* GDPR Compliant Data Preferences Section */}
+            <div className="border border-blue-200 rounded-lg bg-blue-50/30 p-4 mb-6">
+              <div className="flex items-center mb-3">
+                <svg className="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                <h3 className="font-semibold text-gray-800">Your Data Preferences</h3>
+                <span className="ml-auto bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">GDPR Compliant</span>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="bg-white p-3 rounded border border-gray-200">
+                  <h4 className="font-medium text-gray-800 mb-2 flex items-center">
+                    <svg className="w-4 h-4 text-gray-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Marketing Communications
+                  </h4>
+                  <div className="flex items-start space-x-3">
+                    <input
+                      type="checkbox"
+                      id="marketingOptOut"
+                      checked={marketingOptOut}
+                      onChange={(e) => setMarketingOptOut(e.target.checked)}
+                      className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 pointer-events-auto"
+                    />
+                    <label htmlFor="marketingOptOut" className="text-sm text-gray-700 leading-tight">
+                      Tomorrow Media Group would like to send you information by email, telephone and SMS on our other products & services which may be of interest. Tick here if you would rather not receive these.
+                    </label>
+                  </div>
+                </div>
+                
+                <div className="text-xs text-gray-600 flex items-center">
+                  <svg className="w-3 h-3 text-gray-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Your privacy matters to us. You can change these preferences anytime.
+                </div>
+              </div>
+            </div>
+            
+            {/* Legal Requirements Section */}
+            <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg mb-6">
+              <div className="flex items-center mb-2">
+                <svg className="w-4 h-4 text-gray-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h4 className="font-medium text-gray-800">Legal Requirements</h4>
+              </div>
+              <p className="text-xs text-gray-600 leading-tight">
+                By clicking "Get My Deals", you confirm that you are over 18 years of age, responsible for paying your energy bills and agree to receive direct marketing by telephone from our partners listed in our{" "}
+                <a href="/privacy-policy" className="text-blue-600 underline hover:text-blue-800">Privacy Policy</a>. 
+                You can opt-out of marketing at anytime by emailing "stop" to{" "}
+                <a href="mailto:dataprotection@tomorrowmediagroup.com" className="text-blue-600 underline hover:text-blue-800">
+                  dataprotection@tomorrowmediagroup.com
+                </a>.
+              </p>
+            </div>
+            
+            <div className="flex gap-4">
+              <button
+                type="button"
+                onClick={prevSlide}
+                className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+              >
+                Back
+              </button>
+              <button
+                onClick={handleFinalSubmit}
+                className="flex-1 bg-[#4A9B8E] hover:bg-[#3A8B7E] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto flex items-center justify-center"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                Get My Deals
+              </button>
+            </div>
           </div>
         );
 
