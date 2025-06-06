@@ -88,7 +88,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       
       // Try real API first
       try {
-        const response = await fetch(`https://energy.swicc.co.uk/api/addresses/${encodeURIComponent(formattedPostcode)}`);
+        const response = await fetch(`http://energy.swicc.co.uk/api/addresses/${encodeURIComponent(formattedPostcode)}`);
         const data = await response.json();
         
         if (data && data.success && data.addresses) {
@@ -200,7 +200,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       let des_id = false;
 
       try {
-        const eligibilityResponse = await fetch('https://energy.swicc.co.uk/api/checkEligibility?' + new URLSearchParams({
+        const eligibilityResponse = await fetch('http://energy.swicc.co.uk/api/checkEligibility?' + new URLSearchParams({
           address_line_1: addressLine1,
           address_line_2: addressLine2 || '',
           post_code: addressPostcode
@@ -331,10 +331,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
             {addresses.map((address, index) => (
               <button
                 key={index}
-                onClick={() => {
-                  setSelectedAddress(address);
-                  handleAddressSelect();
-                }}
+                onClick={() => handleAddressSelect(address)}
                 className="w-full text-left px-4 py-3 border-b border-gray-200 last:border-b-0 hover:bg-blue-50 transition-colors duration-200 pointer-events-auto text-black block"
               >
                 {formatAddressDisplay(address)}
