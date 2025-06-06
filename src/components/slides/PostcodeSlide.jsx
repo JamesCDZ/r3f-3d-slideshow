@@ -88,10 +88,10 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       
       // Try real API first
       try {
-        const response = await fetch(`http://energy.swicc.co.uk/api/addresses/${encodeURIComponent(formattedPostcode)}`);
+        const response = await fetch(`https://energy.swicc.co.uk/api/addresses/${encodeURIComponent(formattedPostcode)}`);
         const data = await response.json();
         
-        
+
         if (data && data.success && data.addresses) {
           // Sort addresses by house number if available
           const sortedAddresses = [...data.addresses].sort((a, b) => {
@@ -201,7 +201,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       let des_id = false;
 
       try {
-        const eligibilityResponse = await fetch('http://energy.swicc.co.uk/api/checkEligibility?' + new URLSearchParams({
+        const eligibilityResponse = await fetch('https://energy.swicc.co.uk/api/checkEligibility?' + new URLSearchParams({
           address_line_1: addressLine1,
           address_line_2: addressLine2 || '',
           post_code: addressPostcode
