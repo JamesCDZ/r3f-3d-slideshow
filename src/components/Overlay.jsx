@@ -12,6 +12,7 @@ export const formDataAtom = atom({
   lastName: "",
   email: "",
   phone: "",
+  marketingOptOut: false,
 });
 
 export const Overlay = () => {
@@ -26,24 +27,7 @@ export const Overlay = () => {
   const [selectedAddress, setSelectedAddress] = useState("");
   const [isLoadingAddresses, setIsLoadingAddresses] = useState(false);
   const [postcodeError, setPostcodeError] = useState("");
-
-  // Deal loading animation state
-  const [isLoadingDeals, setIsLoadingDeals] = useState(false);
-  const [loadingProviders, setLoadingProviders] = useState([]);
-  const [completedProviders, setCompletedProviders] = useState([]);
-  const [showContactForm, setShowContactForm] = useState(false);
-  const [currentProviderIndex, setCurrentProviderIndex] = useState(-1);
-
-  const ukEnergyProviders = [
-    { name: "British Gas", delay: 800 },
-    { name: "EDF Energy", delay: 1600 },
-    { name: "E.ON Next", delay: 2400 },
-    { name: "Scottish Power", delay: 2800 },
-    { name: "SSE Energy", delay: 3200 },
-    { name: "Octopus Energy", delay: 4800 },
-    { name: "Shell Energy", delay: 5600 },
-    { name: "Utility Warehouse", delay: 6400 },
-  ];
+  const [marketingOptOut, setMarketingOptOut] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -96,39 +80,7 @@ export const Overlay = () => {
   const handleAddressSelect = (address) => {
     setSelectedAddress(address);
     setFormData(prev => ({ ...prev, postcode, address }));
-    startDealLoadingAnimation();
-  };
-
-  const startDealLoadingAnimation = () => {
-    setIsLoadingDeals(true);
-    setLoadingProviders([]);
-    setCompletedProviders([]);
-    setShowContactForm(false);
-    setCurrentProviderIndex(-1);
-    
-    // Move to slide 2
-    setSlide(2);
-    
-    // Start loading animation for each provider with delays
-    ukEnergyProviders.forEach((provider, index) => {
-      setTimeout(() => {
-        setCurrentProviderIndex(index);
-        setLoadingProviders(prev => [...prev, provider.name]);
-      }, provider.delay);
-      
-      setTimeout(() => {
-        setCompletedProviders(prev => [...prev, provider.name]);
-        setLoadingProviders(prev => prev.filter(name => name !== provider.name));
-        
-        // If this is the last provider, finish loading
-        if (index === ukEnergyProviders.length - 1) {
-          setTimeout(() => {
-            setIsLoadingDeals(false);
-            setShowContactForm(true);
-          }, 1500); // Extended delay for celebration effect
-        }
-      }, provider.delay + 1500); // Each provider takes 1.5s to complete
-    });
+    setSlide(2); // Move to contact details slide
   };
 
   const handleContactSubmit = (e) => {
@@ -139,6 +91,7 @@ export const Overlay = () => {
       lastName: formElement.lastName.value,
       email: formElement.email.value,
       phone: formElement.phone.value,
+      marketingOptOut: marketingOptOut,
     };
     
     setFormData(prev => ({ ...prev, ...contactData }));
@@ -167,10 +120,11 @@ export const Overlay = () => {
         return (
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl mb-4 font-extrabold">
-              The Energy Lab
+              Energy Lab
             </h1>
             <p className="text-lg md:text-xl opacity-80 mb-8 max-w-2xl mx-auto">
-            We check the small print so you don't have to - exit fees, price rises, and contract terms explained clearly for each deal</p>
+            We monitor real-time pricing data from every major provider to guarantee you access to the market's best energy deals.
+            </p>
             <button
               onClick={nextSlide}
               className="bg-[#000000] hover:bg-[#FFFFFF] text-white hover:text-black px-8 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
@@ -243,132 +197,7 @@ export const Overlay = () => {
         );
 
       case 2:
-        // Deal Loading Animation or Contact Details
-        if (isLoadingDeals || !showContactForm) {
-          return (
-            <div className="max-w-lg mx-auto text-center">
-              {/* Simplified header */}
-              <div className="mb-6">
-                <h1 className="text-3xl md:text-4xl mb-3 font-bold text-gray-800">
-                  Searching Providers
-                </h1>
-                <p className="text-base text-gray-600 mb-3">
-                  Checking available energy deals in your area...
-                </p>
-              </div>
-              
-              {/* Clean progress indicator */}
-              <div className="mb-6">
-                <div className="bg-gray-200 rounded-full h-2 mb-3 overflow-hidden">
-                  <div 
-                    className="bg-[#4A9B8E] h-2 rounded-full transition-all duration-700 ease-out"
-                    style={{ 
-                      width: `${(completedProviders.length / ukEnergyProviders.length) * 100}%` 
-                    }}
-                  >
-                  </div>
-                </div>
-                <p className="text-sm text-gray-500">
-                  {completedProviders.length} of {ukEnergyProviders.length} providers checked
-                </p>
-              </div>
-
-              {/* Auto-scrolling provider list */}
-              <div className="relative">
-                <div 
-                  className="space-y-2 h-48 overflow-hidden"
-                  style={{
-                    maskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)'
-                  }}
-                >
-                  <div 
-                    className="transition-transform duration-700 ease-out space-y-2"
-                    style={{
-                      transform: `translateY(-${Math.max(0, (currentProviderIndex - 2)) * 56}px)`
-                    }}
-                  >
-                    {ukEnergyProviders.map((provider, index) => {
-                      const isCompleted = completedProviders.includes(provider.name);
-                      const isLoading = loadingProviders.includes(provider.name);
-                      const isPending = !isCompleted && !isLoading;
-                      const isCurrent = index === currentProviderIndex;
-
-                      return (
-                        <div 
-                          key={provider.name}
-                          className={`flex items-center justify-between p-3 rounded-lg transition-all duration-500 ${
-                            isCompleted 
-                              ? 'bg-green-50 border border-green-200' 
-                              : isLoading 
-                              ? 'bg-blue-50 border border-blue-200 ring-2 ring-blue-100' 
-                              : isCurrent
-                              ? 'bg-yellow-50 border border-yellow-200'
-                              : 'bg-gray-50 border border-gray-100 opacity-70'
-                          }`}
-                        >
-                          <div className="flex items-center space-x-3">
-                            {/* Small provider indicator */}
-                            <div className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                              isCompleted 
-                                ? 'bg-green-500' 
-                                : isLoading 
-                                ? 'bg-blue-500 animate-pulse' 
-                                : isCurrent
-                                ? 'bg-yellow-500'
-                                : 'bg-gray-300'
-                            }`}></div>
-                            
-                            <span className={`font-medium text-sm transition-colors duration-300 ${
-                              isCompleted 
-                                ? 'text-green-700' 
-                                : isLoading 
-                                ? 'text-blue-700' 
-                                : isCurrent
-                                ? 'text-yellow-700'
-                                : 'text-gray-500'
-                            }`}>
-                              {provider.name}
-                            </span>
-                          </div>
-                          
-                          <div className="flex items-center">
-                            {isCompleted && (
-                              <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                              </svg>
-                            )}
-                            
-                            {isLoading && (
-                              <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-500 border-t-transparent"></div>
-                            )}
-                            
-                            {(isPending || isCurrent) && !isLoading && (
-                              <div className="w-4 h-4 rounded-full bg-gray-300"></div>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                
-                {/* Fade effect indicators */}
-                <div className="absolute top-0 left-0 right-0 h-6 bg-gradient-to-b from-white to-transparent pointer-events-none"></div>
-              </div>
-
-              {/* Simple completion message */}
-              {completedProviders.length === ukEnergyProviders.length && !showContactForm && (
-                <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <p className="text-green-700 font-medium text-sm">
-                    ✓ Search complete! Preparing your options...
-                  </p>
-                </div>
-              )}
-            </div>
-          );
-        }
-
-        // Contact Details Form (shown after loading animation)
+        // Contact Details
         return (
           <div className="max-w-md mx-auto">
             <h1 className="text-3xl md:text-4xl mb-4 font-extrabold text-center">
@@ -419,7 +248,32 @@ export const Overlay = () => {
                 </div>
               )}
               
-              <div className="flex gap-4">
+              {/* Marketing opt-out checkbox */}
+              <div className="flex items-start space-x-3 py-2">
+                <input
+                  type="checkbox"
+                  id="marketingOptOut"
+                  checked={marketingOptOut}
+                  onChange={(e) => setMarketingOptOut(e.target.checked)}
+                  className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 pointer-events-auto"
+                />
+                <label htmlFor="marketingOptOut" className="text-sm text-gray-700 leading-tight">
+                  Tomorrow Media Group would like to send you information by email, telephone and SMS on our other products & services which may be of interest. Tick here if you would rather not receive these.
+                </label>
+              </div>
+              
+              {/* Disclaimer */}
+              <div className="bg-gray-50 p-3 rounded-lg border">
+                <p className="text-xs text-gray-600 leading-tight">
+                  By clicking "Get My Deals", you confirm that you are over 18 years of age, responsible for paying your energy bills and agree to receive direct marketing by telephone from our partners listed in our Privacy Policy. You can opt-out of marketing at anytime by emailing "stop" to{" "}
+                  <a href="mailto:dataprotection@tomorrowmediagroup.com" className="text-blue-600 underline">
+                    dataprotection@tomorrowmediagroup.com
+                  </a>
+                  .
+                </p>
+              </div>
+              
+              <div className="flex gap-4 pt-2">
                 <button
                   type="button"
                   onClick={prevSlide}
@@ -429,7 +283,7 @@ export const Overlay = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 bg-[#4A9B8E] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+                  className="flex-1 bg-[#4A9B8E] hover:bg-[#3A8B7E] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
                 >
                   Get My Deals
                 </button>
