@@ -199,6 +199,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       let baxterKellyEligibility = false;
       let product_id = false;
       let des_id = false;
+      let epcData = null;
 
       try {
         const eligibilityResponse = await fetch('https://energy.swicc.co.uk/api/checkEligibility?' + new URLSearchParams({
