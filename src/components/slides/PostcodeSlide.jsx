@@ -64,89 +64,60 @@ const EPCCard = ({ epcData, onConfirm, onBack }) => {
     };
   
     return (
-      <div className="animate-fade-in-up space-y-4">
-        {/* Current Energy Costs - Most Important for Switching */}
+      <div className="animate-fade-in-up space-y-4" style={{ paddingTop: '2rem' }}>
+        {/* Property Overview & Key Details */}
         <div className="bg-white rounded-lg shadow-lg p-4">
-          <h3 className="font-semibold text-lg text-gray-800 mb-3 text-center">Current Energy Spending</h3>
+          <h3 className="font-semibold text-lg text-gray-800 mb-3 text-center">Property Overview</h3>
           
-          {calculateTotalAnnualCost() && (
-            <div className="text-center mb-4">
-              <div className="text-3xl font-bold text-red-600 mb-1">
-                {formatCurrency(calculateTotalAnnualCost())}
-              </div>
-              <p className="text-sm text-gray-600">per year</p>
-              <p className="text-xs text-gray-500 mt-1">
-                ≈ {formatCurrency(Math.round(calculateTotalAnnualCost() / 12))}/month
-              </p>
+          {/* Property Type & Size */}
+          <div className="text-center mb-4">
+            <div className="text-xl font-bold text-blue-600 mb-1">
+              {epcData.property?.type || 'Property Type Unknown'}
             </div>
-          )}
-  
-          {/* Breakdown */}
-          {epcData.costs && (
-            <div className="grid grid-cols-3 gap-2 text-xs">
-              {epcData.costs.heating && (
-                <div className="text-center bg-red-50 rounded p-2">
-                  <p className="text-gray-600">Heating</p>
-                  <p className="font-semibold text-red-700">{formatCurrency(epcData.costs.heating.current)}</p>
-                </div>
-              )}
-              {epcData.costs.hotWater && (
-                <div className="text-center bg-orange-50 rounded p-2">
-                  <p className="text-gray-600">Hot Water</p>
-                  <p className="font-semibold text-orange-700">{formatCurrency(epcData.costs.hotWater.current)}</p>
-                </div>
-              )}
-              {epcData.costs.lighting && (
-                <div className="text-center bg-yellow-50 rounded p-2">
-                  <p className="text-gray-600">Lighting</p>
-                  <p className="font-semibold text-yellow-700">{formatCurrency(epcData.costs.lighting.current)}</p>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-  
-        {/* Property Info & Savings Potential */}
-        <div className="bg-white rounded-lg shadow-lg p-4 space-y-3">
-          {/* Property basics */}
-          <div className="text-center border-b border-gray-100 pb-2">
-            <p className="text-sm font-medium text-gray-800">
-              {epcData.property?.type || 'Property'} • {epcData.property?.totalFloorArea || 'N/A'} m² • {epcData.property?.numberHabitableRooms || 'N/A'} rooms
+            <p className="text-sm text-gray-600">
+              {epcData.property?.totalFloorArea || 'N/A'} m² • {epcData.property?.numberHabitableRooms || 'N/A'} rooms
             </p>
-            <p className="text-xs text-gray-600">Built: {epcData.property?.constructionAgeBand || 'Unknown'}</p>
+            <p className="text-xs text-gray-500 mt-1">
+              Built: {epcData.property?.constructionAgeBand || 'Unknown'}
+            </p>
           </div>
   
-          {/* Savings potential and energy rating */}
-          <div className="grid grid-cols-2 gap-3">
-            {/* Potential savings */}
-            {calculatePotentialSavings() && calculatePotentialSavings() > 0 && (
-              <div className="text-center bg-green-50 rounded p-2">
-                <p className="text-xs text-gray-600">Potential Savings</p>
-                <p className="font-bold text-green-700">{formatCurrency(calculatePotentialSavings())}</p>
-                <p className="text-xs text-green-600">per year</p>
-              </div>
-            )}
-            
-            {/* Current energy rating */}
-            <div className="text-center">
-              <p className="text-xs text-gray-600 mb-1">Energy Rating</p>
-              <div className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-white font-bold ${getEnergyRatingColor(epcData.energyRating?.current)}`}>
+          {/* Key Property Features */}
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            {/* Energy Rating */}
+            <div className="text-center bg-blue-50 rounded p-2">
+              <p className="text-gray-600">Energy Rating</p>
+              <div className={`w-8 h-8 mx-auto mt-1 rounded-full flex items-center justify-center text-white font-bold text-sm ${getEnergyRatingColor(epcData.energyRating?.current)}`}>
                 {epcData.energyRating?.current || 'N/A'}
               </div>
             </div>
+            
+            {/* Fuel Type */}
+            {epcData.features?.mainFuel && (
+              <div className="text-center bg-green-50 rounded p-2">
+                <p className="text-gray-600">Main Fuel</p>
+                <p className="font-semibold text-green-700 mt-1">{epcData.features.mainFuel}</p>
+              </div>
+            )}
+            
+            {/* Mains Gas Available */}
+            {epcData.features?.mainsGas && (
+              <div className="text-center bg-purple-50 rounded p-2">
+                <p className="text-gray-600">Mains Gas</p>
+                <p className="font-semibold text-purple-700 mt-1">Available</p>
+              </div>
+            )}
+            
+            {/* Property Tenure */}
+            {epcData.property?.tenure && (
+              <div className="text-center bg-orange-50 rounded p-2">
+                <p className="text-gray-600">Tenure</p>
+                <p className="font-semibold text-orange-700 mt-1">{epcData.property.tenure}</p>
+              </div>
+            )}
           </div>
-  
-          {/* Fuel type - important for tariff matching */}
-          {epcData.features?.mainFuel && (
-            <div className="text-center bg-blue-50 rounded p-2">
-              <p className="text-xs text-gray-600">Main Fuel Type</p>
-              <p className="font-medium text-blue-800">{epcData.features.mainFuel}</p>
-              {epcData.features.mainsGas && (
-                <p className="text-xs text-blue-600">✓ Mains Gas Available</p>
-              )}
-            </div>
-          )}
         </div>
+  
   
         {/* Action buttons */}
         <div className="flex gap-3">
