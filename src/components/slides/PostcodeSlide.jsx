@@ -155,20 +155,19 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
     }
   };
 
-  // Handle address selection
-  const handleAddressSelect = async () => {
-    if (!selectedAddress) return;
+  // Handle address selection - now automatically continues
+  const handleAddressSelect = async (address = selectedAddress) => {
+    if (!address) return;
 
-    setIsLoadingAddresses(true);
     setIsCheckingEligibility(true);
     
     try {
       // Extract address components
-      const addressPostcode = selectedAddress['Column 0'] || '';
-      const streetName = selectedAddress['Column4'] || '';
-      const houseNumber = selectedAddress['Column6'] || '';
-      const flatNumber = selectedAddress['Column8'] || '';
-      const houseName = selectedAddress['Column7'] || '';
+      const addressPostcode = address['Column 0'] || '';
+      const streetName = address['Column4'] || '';
+      const houseNumber = address['Column6'] || '';
+      const flatNumber = address['Column8'] || '';
+      const houseName = address['Column7'] || '';
       
       let addressLine1 = '';
       let addressLine2 = '';
@@ -222,13 +221,13 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       }
 
       const addressData = {
-        formatted: formatAddressDisplay(selectedAddress),
+        formatted: formatAddressDisplay(address),
         house: houseNumber || houseName || flatNumber || '',
         street: addressLine2 || streetName || '',
-        town: selectedAddress['Column1'] || '',
-        county: selectedAddress['Column2'] || '',
+        town: address['Column1'] || '',
+        county: address['Column2'] || '',
         postcode: addressPostcode,
-        uprn: selectedAddress['Column 12'] || null,
+        uprn: address['Column 12'] || null,
         addressLine1: addressLine1,
         addressLine2: addressLine2,
         ecoEligible: ecoEligibility,
@@ -247,8 +246,8 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       console.error('Error processing address:', error);
       // Continue with basic address data even if eligibility check fails
       const basicAddressData = {
-        formatted: formatAddressDisplay(selectedAddress),
-        postcode: selectedAddress['Column 0'] || '',
+        formatted: formatAddressDisplay(address),
+        postcode: address['Column 0'] || '',
         ecoEligible: false,
         baxterKellyEligible: false
       };
@@ -256,7 +255,6 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       onAddressSelected(basicAddressData);
       onNext();
     } finally {
-      setIsLoadingAddresses(false);
       setIsCheckingEligibility(false);
     }
   };
@@ -323,33 +321,33 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       ) : addresses.length && !showManualEntry ? (
         <div className="space-y-4">
           <h3 className="font-semibold text-lg">Select your address:</h3>
-          <div className="space-y-2 max-h-60 overflow-y-auto">
+          <div 
+            className="max-h-60 overflow-y-auto border border-gray-200 rounded-lg pointer-events-auto"
+            style={{ 
+              scrollbarWidth: 'thin',
+              scrollbarColor: '#CBD5E0 #F7FAFC'
+            }}
+          >
             {addresses.map((address, index) => (
               <button
                 key={index}
-                onClick={() => setSelectedAddress(address)}
-                className={`w-full text-left px-4 py-3 border rounded-lg transition-colors duration-200 pointer-events-auto text-black ${
-                  selectedAddress === address 
-                    ? 'border-blue-500 bg-blue-50' 
-                    : 'border-gray-300 hover:bg-blue-50 hover:border-blue-500'
-                }`}
+                onClick={() => {
+                  setSelectedAddress(address);
+                  handleAddressSelect();
+                }}
+                className="w-full text-left px-4 py-3 border-b border-gray-200 last:border-b-0 hover:bg-blue-50 transition-colors duration-200 pointer-events-auto text-black block"
               >
                 {formatAddressDisplay(address)}
               </button>
             ))}
           </div>
 
-          {selectedAddress && (
-            <button
-              onClick={handleAddressSelect}
-              disabled={isCheckingEligibility}
-              className="w-full bg-[#000000] hover:bg-[#FFFFFF] text-white hover:text-black disabled:opacity-50 px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
-            >
-              {isCheckingEligibility ? "Checking Eligibility..." : "Continue"}
-            </button>
+          {isCheckingEligibility && (
+            <div className="text-center">
+              <p className="text-sm text-gray-600 mb-2">Checking eligibility...</p>
+              <LoadingDots />
+            </div>
           )}
-
-          {isCheckingEligibility && <LoadingDots />}
 
           <button
             onClick={() => {
