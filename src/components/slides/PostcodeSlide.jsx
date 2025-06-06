@@ -75,7 +75,7 @@ const EPCCard = ({ epcData, onConfirm, onBack }) => {
               {epcData.property?.type || 'Property Type Unknown'}
             </div>
             <p className="text-sm text-gray-600">
-              {epcData.property?.totalFloorArea || 'N/A'} m² • {epcData.property?.numberHabitableRooms || 'N/A'} rooms
+              {epcData.property?.totalFloorArea || 'N/A'} m² 
             </p>
             <p className="text-xs text-gray-500 mt-1">
               Built: {epcData.property?.constructionAgeBand || 'Unknown'}
