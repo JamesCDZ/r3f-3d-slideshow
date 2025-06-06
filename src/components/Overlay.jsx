@@ -281,6 +281,7 @@ export const Overlay = () => {
                   <div>
                     <p className="text-sm font-medium">We will never spam you</p>
                     <p className="text-xs text-green-700">Secure data that's only used to find deals that save you money</p>
+                    
                   </div>
                 </div>
               </div>
@@ -293,6 +294,7 @@ export const Overlay = () => {
                 >
                   Back
                 </button>
+              
                 <button
                   type="submit"
                   className="flex-1 bg-[#4A9B8E] hover:bg-[#3A8B7E] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
