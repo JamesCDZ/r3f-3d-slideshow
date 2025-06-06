@@ -91,6 +91,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
         const response = await fetch(`http://energy.swicc.co.uk/api/addresses/${encodeURIComponent(formattedPostcode)}`);
         const data = await response.json();
         
+        
         if (data && data.success && data.addresses) {
           // Sort addresses by house number if available
           const sortedAddresses = [...data.addresses].sort((a, b) => {
