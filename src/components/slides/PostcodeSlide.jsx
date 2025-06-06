@@ -228,7 +228,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
         console.log("Using Address Line 2:", addressLine2);
         console.log("Using Postcode:", postcode);
 
-        const epcResponse = await $fetch('https://energy.swicc.co.uk/api/epc/lookup', {
+        const epcResponse = await fetch('https://energy.swicc.co.uk/api/epc/lookup', {
           params: {
             address1: addressLine1,
             address2: addressLine2,
