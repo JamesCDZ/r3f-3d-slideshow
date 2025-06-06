@@ -293,7 +293,6 @@ export const Overlay = () => {
                 >
                   Back
                 </button>
-              
                 <button
                   type="submit"
                   className="flex-1 bg-[#4A9B8E] hover:bg-[#3A8B7E] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
@@ -450,8 +449,10 @@ export const Overlay = () => {
           </div>
         )}
 
-        <div className="bg-gradient-to-t from-white/90 pt-20 pb-32 md:pb-24 p-4 flex items-center flex-col">
-          {renderSlideContent()}
+        <div className="bg-gradient-to-t from-white/90 pt-20 pb-10 md:pb-24 p-4 flex items-center flex-col overflow-y-auto max-h-screen">
+          <div className="w-full max-w-lg mx-auto">
+            {renderSlideContent()}
+          </div>
         </div>
       </div>
     </>
