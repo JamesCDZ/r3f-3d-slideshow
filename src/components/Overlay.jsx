@@ -4,6 +4,7 @@ import { scenes } from "./Experience";
 import { WelcomeSlide } from "./slides/WelcomeSlide";
 import { PostcodeSlide } from "./slides/PostcodeSlide";
 import { ContactSlide } from "./slides/ContactSlide";
+import { PrivacySlide } from "./slides/PrivacySlide";
 
 export const slideAtom = atom(0);
 
@@ -15,6 +16,7 @@ export const formDataAtom = atom({
   lastName: "",
   email: "",
   phone: "",
+  marketingOptOut: false,
   // Additional address fields from Vue component
   house: "",
   street: "",
@@ -50,7 +52,7 @@ export const Overlay = () => {
   }, [slide]);
 
   const nextSlide = () => {
-    if (slide < scenes.length - 1) {
+    if (slide < 3) { // Allow up to slide 3 (4 total slides: 0,1,2,3)
       setSlide(slide + 1);
     }
   };
@@ -66,7 +68,11 @@ export const Overlay = () => {
   };
 
   const handleContactSubmit = (contactData) => {
-    const finalFormData = { ...formData, ...contactData };
+    setFormData(prev => ({ ...prev, ...contactData }));
+    nextSlide(); // Move to privacy slide
+  };
+
+  const handleFinalSubmit = (finalFormData) => {
     setFormData(finalFormData);
     
     // Handle form submission here (send to API, etc.)
@@ -93,6 +99,15 @@ export const Overlay = () => {
             onSubmit={handleContactSubmit}
             onBack={prevSlide}
             addressData={formData}
+          />
+        );
+
+      case 3:
+        return (
+          <PrivacySlide 
+            onSubmit={handleFinalSubmit}
+            onBack={prevSlide}
+            formData={formData}
           />
         );
 
