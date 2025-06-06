@@ -17,6 +17,187 @@ const LoadingDots = () => (
   </div>
 );
 
+const EPCCard = ({ epcData, onConfirm, onBack }) => {
+  const getEnergyRatingColor = (rating) => {
+    const colors = {
+      'A': 'bg-green-600',
+      'B': 'bg-green-500', 
+      'C': 'bg-yellow-500',
+      'D': 'bg-orange-500',
+      'E': 'bg-red-500',
+      'F': 'bg-red-600',
+      'G': 'bg-red-700'
+    };
+    return colors[rating] || 'bg-gray-500';
+  };
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: 'GBP',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(amount);
+  };
+
+  return (
+    <div className="animate-fade-in-up">
+      <h2 className="text-2xl md:text-3xl mb-4 font-extrabold text-center">
+        Property Details Found
+      </h2>
+      <p className="text-opacity-80 mb-6 text-center">
+        We found your property's energy performance details. Please confirm these are correct.
+      </p>
+
+      <div className="bg-white rounded-lg shadow-lg p-6 mb-6 text-left max-h-96 overflow-y-auto">
+        {/* Property Address */}
+        <div className="mb-4 pb-4 border-b border-gray-200">
+          <h3 className="font-semibold text-lg text-gray-800 mb-2">Property Address</h3>
+          <p className="text-gray-600">{epcData.address?.fullAddress || 'Address not available'}</p>
+        </div>
+
+        {/* Energy Rating */}
+        <div className="mb-4 pb-4 border-b border-gray-200">
+          <h3 className="font-semibold text-lg text-gray-800 mb-3">Energy Performance</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="text-center">
+              <p className="text-sm text-gray-600 mb-2">Current Rating</p>
+              <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center text-white font-bold text-xl ${getEnergyRatingColor(epcData.energyRating?.current)}`}>
+                {epcData.energyRating?.current || 'N/A'}
+              </div>
+              <p className="text-xs text-gray-500 mt-1">{epcData.energyRating?.currentEfficiency || 0} points</p>
+            </div>
+            <div className="text-center">
+              <p className="text-sm text-gray-600 mb-2">Potential Rating</p>
+              <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center text-white font-bold text-xl ${getEnergyRatingColor(epcData.energyRating?.potential)}`}>
+                {epcData.energyRating?.potential || 'N/A'}
+              </div>
+              <p className="text-xs text-gray-500 mt-1">{epcData.energyRating?.potentialEfficiency || 0} points</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Property Details */}
+        <div className="mb-4 pb-4 border-b border-gray-200">
+          <h3 className="font-semibold text-lg text-gray-800 mb-3">Property Information</h3>
+          <div className="grid grid-cols-2 gap-2 text-sm">
+            <div>
+              <span className="text-gray-600">Property Type:</span>
+              <span className="ml-2 font-medium text-gray-800">{epcData.property?.type || 'N/A'}</span>
+            </div>
+            <div>
+              <span className="text-gray-600">Built:</span>
+              <span className="ml-2 font-medium text-gray-800">{epcData.property?.constructionAgeBand || 'N/A'}</span>
+            </div>
+            <div>
+              <span className="text-gray-600">Floor Area:</span>
+              <span className="ml-2 font-medium text-gray-800">{epcData.property?.totalFloorArea || 'N/A'} m²</span>
+            </div>
+            <div>
+              <span className="text-gray-600">Rooms:</span>
+              <span className="ml-2 font-medium text-gray-800">{epcData.property?.numberHabitableRooms || 'N/A'}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Annual Energy Costs */}
+        {epcData.costs && (
+          <div className="mb-4 pb-4 border-b border-gray-200">
+            <h3 className="font-semibold text-lg text-gray-800 mb-3">Annual Energy Costs</h3>
+            <div className="space-y-2 text-sm">
+              {epcData.costs.heating && (
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Heating:</span>
+                  <span className="font-medium text-gray-800">
+                    {formatCurrency(epcData.costs.heating.current)}
+                    {epcData.costs.heating.potential && epcData.costs.heating.potential !== epcData.costs.heating.current && (
+                      <span className="text-green-600 ml-2">→ {formatCurrency(epcData.costs.heating.potential)}</span>
+                    )}
+                  </span>
+                </div>
+              )}
+              {epcData.costs.lighting && (
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Lighting:</span>
+                  <span className="font-medium text-gray-800">
+                    {formatCurrency(epcData.costs.lighting.current)}
+                    {epcData.costs.lighting.potential && epcData.costs.lighting.potential !== epcData.costs.lighting.current && (
+                      <span className="text-green-600 ml-2">→ {formatCurrency(epcData.costs.lighting.potential)}</span>
+                    )}
+                  </span>
+                </div>
+              )}
+              {epcData.costs.hotWater && (
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Hot Water:</span>
+                  <span className="font-medium text-gray-800">
+                    {formatCurrency(epcData.costs.hotWater.current)}
+                    {epcData.costs.hotWater.potential && epcData.costs.hotWater.potential !== epcData.costs.hotWater.current && (
+                      <span className="text-green-600 ml-2">→ {formatCurrency(epcData.costs.hotWater.potential)}</span>
+                    )}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Key Building Elements */}
+        {epcData.buildingElements && (
+          <div className="mb-4">
+            <h3 className="font-semibold text-lg text-gray-800 mb-3">Building Elements</h3>
+            <div className="space-y-2 text-sm">
+              {epcData.buildingElements.walls && (
+                <div>
+                  <span className="text-gray-600">Walls:</span>
+                  <span className="ml-2 text-gray-800">{epcData.buildingElements.walls.description}</span>
+                  <span className="ml-2 text-blue-600">({epcData.buildingElements.walls.energyEfficiency})</span>
+                </div>
+              )}
+              {epcData.buildingElements.roof && (
+                <div>
+                  <span className="text-gray-600">Roof:</span>
+                  <span className="ml-2 text-gray-800">{epcData.buildingElements.roof.description}</span>
+                  <span className="ml-2 text-blue-600">({epcData.buildingElements.roof.energyEfficiency})</span>
+                </div>
+              )}
+              {epcData.buildingElements.windows && (
+                <div>
+                  <span className="text-gray-600">Windows:</span>
+                  <span className="ml-2 text-gray-800">{epcData.buildingElements.windows.description}</span>
+                  <span className="ml-2 text-blue-600">({epcData.buildingElements.windows.energyEfficiency})</span>
+                </div>
+              )}
+              {epcData.buildingElements.mainHeating && (
+                <div>
+                  <span className="text-gray-600">Heating:</span>
+                  <span className="ml-2 text-gray-800">{epcData.buildingElements.mainHeating.description}</span>
+                  <span className="ml-2 text-blue-600">({epcData.buildingElements.mainHeating.energyEfficiency})</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="flex gap-4">
+        <button
+          onClick={onBack}
+          className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+        >
+          Search Again
+        </button>
+        <button
+          onClick={onConfirm}
+          className="flex-1 bg-[#4A9B8E] hover:bg-[#3d8a7b] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+        >
+          Confirm & Continue
+        </button>
+      </div>
+    </div>
+  );
+};
+
 export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
   const [postcode, setPostcode] = useState("");
   const [postcodeError, setPostcodeError] = useState("");
@@ -25,6 +206,9 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [showManualEntry, setShowManualEntry] = useState(false);
   const [isCheckingEligibility, setIsCheckingEligibility] = useState(false);
+  const [epcData, setEpcData] = useState(null);
+  const [showEpcDetails, setShowEpcDetails] = useState(false);
+  const [pendingAddressData, setPendingAddressData] = useState(null);
   
   const [manualAddress, setManualAddress] = useState({
     house: "",
@@ -68,6 +252,8 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
     setPostcodeError("");
     setSelectedAddress(null);
     setAddresses([]);
+    setShowEpcDetails(false);
+    setEpcData(null);
   };
 
   // Find addresses by postcode
@@ -199,7 +385,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       let baxterKellyEligibility = false;
       let product_id = false;
       let des_id = false;
-      let epcData = null;
+      let fetchedEpcData = null;
 
       try {
         const eligibilityResponse = await fetch('https://energy.swicc.co.uk/api/checkEligibility?' + new URLSearchParams({
@@ -222,114 +408,40 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
         baxterKellyEligibility = Math.random() > 0.7;
       }
 
-            // Fetch EPC data using the same address lines
-// Fix the EPC API call
-// Fetch EPC data using the same address lines
-try {
-    console.log("=== FETCHING EPC DATA ===");
-    console.log("Using Address Line 1:", addressLine1);
-    console.log("Using Address Line 2:", addressLine2);
-    console.log("Using Postcode:", addressPostcode); // ✅ Use addressPostcode, not postcode
-  
-    // Build URL with query parameters for fetch
-    const epcUrl = new URL('https://energy.swicc.co.uk/api/epc/lookup');
-    epcUrl.searchParams.append('address1', addressLine1);
-    if (addressLine2) {
-      epcUrl.searchParams.append('address2', addressLine2);
-    }
-    epcUrl.searchParams.append('postcode', addressPostcode); // ✅ Use addressPostcode
-  
-    console.log("EPC URL:", epcUrl.toString()); // Debug: log the actual URL being called
-  
-    const epcResponse = await fetch(epcUrl.toString());
-    const epcResponseData = await epcResponse.json(); // ✅ Renamed to avoid conflict
-  
-    console.log("Raw EPC Response:", epcResponseData); // Debug: log raw response
-  
-    if (epcResponseData.success && epcResponseData.data) {
-      epcData = epcResponseData.data; // ✅ Store the data properly
-      console.log("=== EPC DATA FOUND ===");
-      console.log("Full EPC Response:", epcResponseData);
-      console.log("Search Criteria Used:", epcResponseData.searchCriteria);
-      console.log("Total Matches Found:", epcResponseData.totalMatches);
-      console.log("");
-      console.log("--- ENERGY RATINGS ---");
-      console.log("Current Energy Rating:", epcData.energyRating.current);
-      console.log("Potential Energy Rating:", epcData.energyRating.potential);
-      console.log("Current Energy Efficiency:", epcData.energyRating.currentEfficiency);
-      console.log("Potential Energy Efficiency:", epcData.energyRating.potentialEfficiency);
-      console.log("");
-      console.log("--- PROPERTY DETAILS ---");
-      console.log("Property Type:", epcData.property.type);
-      console.log("Built Form:", epcData.property.builtForm);
-      console.log("Construction Age Band:", epcData.property.constructionAgeBand);
-      console.log("Total Floor Area:", epcData.property.totalFloorArea);
-      console.log("Tenure:", epcData.property.tenure);
-      console.log("Habitable Rooms:", epcData.property.numberHabitableRooms);
-      console.log("Heated Rooms:", epcData.property.numberHeatedRooms);
-      console.log("");
-      console.log("--- ENERGY COSTS (Annual) ---");
-      console.log("Current Heating Cost: £", epcData.costs.heating.current);
-      console.log("Potential Heating Cost: £", epcData.costs.heating.potential);
-      console.log("Current Lighting Cost: £", epcData.costs.lighting.current);
-      console.log("Potential Lighting Cost: £", epcData.costs.lighting.potential);
-      console.log("Current Hot Water Cost: £", epcData.costs.hotWater.current);
-      console.log("Potential Hot Water Cost: £", epcData.costs.hotWater.potential);
-      console.log("");
-      console.log("--- ENVIRONMENTAL IMPACT ---");
-      console.log("Current Environmental Impact:", epcData.environmental.currentImpact);
-      console.log("Potential Environmental Impact:", epcData.environmental.potentialImpact);
-      console.log("Current CO2 Emissions:", epcData.environmental.co2EmissionsCurrent);
-      console.log("Potential CO2 Emissions:", epcData.environmental.co2EmissionsPotential);
-      console.log("Current Energy Consumption:", epcData.environmental.energyConsumptionCurrent);
-      console.log("Potential Energy Consumption:", epcData.environmental.energyConsumptionPotential);
-      console.log("");
-      console.log("--- PROPERTY FEATURES ---");
-      console.log("Main Fuel Type:", epcData.features.mainFuel);
-      console.log("Mains Gas Available:", epcData.features.mainsGas);
-      console.log("Solar Water Heating:", epcData.features.solarWaterHeating);
-      console.log("Wind Turbine Count:", epcData.features.windTurbineCount);
-      console.log("Low Energy Lighting %:", epcData.features.lowEnergyLighting);
-      console.log("Open Fireplaces:", epcData.features.numberOpenFireplaces);
-      console.log("Multi Glaze Proportion:", epcData.features.multiGlazeProportion);
-      console.log("");
-      console.log("--- BUILDING ELEMENTS ---");
-      console.log("Walls:", epcData.buildingElements.walls.description);
-      console.log("Walls Energy Efficiency:", epcData.buildingElements.walls.energyEfficiency);
-      console.log("Roof:", epcData.buildingElements.roof.description);
-      console.log("Roof Energy Efficiency:", epcData.buildingElements.roof.energyEfficiency);
-      console.log("Floor:", epcData.buildingElements.floor.description);
-      console.log("Floor Energy Efficiency:", epcData.buildingElements.floor.energyEfficiency);
-      console.log("Windows:", epcData.buildingElements.windows.description);
-      console.log("Windows Energy Efficiency:", epcData.buildingElements.windows.energyEfficiency);
-      console.log("Main Heating:", epcData.buildingElements.mainHeating.description);
-      console.log("Main Heating Energy Efficiency:", epcData.buildingElements.mainHeating.energyEfficiency);
-      console.log("Hot Water:", epcData.buildingElements.hotWater.description);
-      console.log("Hot Water Energy Efficiency:", epcData.buildingElements.hotWater.energyEfficiency);
-      console.log("");
-      console.log("--- CERTIFICATE INFO ---");
-      console.log("Inspection Date:", epcData.certificate.inspectionDate);
-      console.log("Lodgement Date:", epcData.certificate.lodgementDate);
-      console.log("Transaction Type:", epcData.certificate.transactionType);
-      console.log("Building Reference Number:", epcData.certificate.buildingReferenceNumber);
-      console.log("UPRN:", epcData.certificate.uprn);
-      console.log("Local Authority:", epcData.administrative.localAuthorityLabel);
-      console.log("======================");
-    } else {
-      console.log("=== NO EPC DATA FOUND ===");
-      console.log("EPC Response:", epcResponseData);
-      console.log("Search Criteria:", epcResponseData?.searchCriteria);
-      console.log("Message:", epcResponseData?.message);
-      console.log("========================");
-      epcData = null;
-    }
-  } catch (epcError) {
-    console.error('=== EPC LOOKUP ERROR ===');
-    console.error('Error fetching EPC data:', epcError);
-    console.log("EPC lookup failed, continuing without EPC data");
-    console.log("========================");
-    epcData = null;
-  }
+      // Fetch EPC data
+      try {
+        console.log("=== FETCHING EPC DATA ===");
+        console.log("Using Address Line 1:", addressLine1);
+        console.log("Using Address Line 2:", addressLine2);
+        console.log("Using Postcode:", addressPostcode);
+      
+        const epcUrl = new URL('https://energy.swicc.co.uk/api/epc/lookup');
+        epcUrl.searchParams.append('address1', addressLine1);
+        if (addressLine2) {
+          epcUrl.searchParams.append('address2', addressLine2);
+        }
+        epcUrl.searchParams.append('postcode', addressPostcode);
+      
+        console.log("EPC URL:", epcUrl.toString());
+      
+        const epcResponse = await fetch(epcUrl.toString());
+        const epcResponseData = await epcResponse.json();
+      
+        console.log("Raw EPC Response:", epcResponseData);
+      
+        if (epcResponseData.success && epcResponseData.data) {
+          fetchedEpcData = epcResponseData.data;
+          console.log("=== EPC DATA FOUND ===");
+          console.log("Full EPC Response:", epcResponseData);
+        } else {
+          console.log("=== NO EPC DATA FOUND ===");
+          fetchedEpcData = null;
+        }
+      } catch (epcError) {
+        console.error('=== EPC LOOKUP ERROR ===');
+        console.error('Error fetching EPC data:', epcError);
+        fetchedEpcData = null;
+      }
 
       const addressData = {
         formatted: formatAddressDisplay(address),
@@ -344,14 +456,24 @@ try {
         ecoEligible: ecoEligibility,
         product_id: product_id,
         des_id: des_id,
-        baxterKellyEligible: baxterKellyEligibility
+        baxterKellyEligible: baxterKellyEligibility,
+        epcData: fetchedEpcData
       };
 
-      onAddressSelected(addressData);
-      
-      setTimeout(() => {
-        onNext();
-      }, 100);
+      // Store the address data and EPC data
+      setPendingAddressData(addressData);
+      setEpcData(fetchedEpcData);
+
+      // If EPC data found, show EPC details screen
+      if (fetchedEpcData) {
+        setShowEpcDetails(true);
+      } else {
+        // No EPC data, proceed directly
+        onAddressSelected(addressData);
+        setTimeout(() => {
+          onNext();
+        }, 100);
+      }
 
     } catch (error) {
       console.error('Error processing address:', error);
@@ -370,6 +492,23 @@ try {
     }
   };
 
+  // Handle EPC confirmation
+  const handleEpcConfirm = () => {
+    if (pendingAddressData) {
+      onAddressSelected(pendingAddressData);
+      setTimeout(() => {
+        onNext();
+      }, 100);
+    }
+  };
+
+  // Handle EPC back button (return to address selection)
+  const handleEpcBack = () => {
+    setShowEpcDetails(false);
+    setEpcData(null);
+    setPendingAddressData(null);
+  };
+
   // Handle manual address entry
   const handleManualAddress = () => {
     if (isManualAddressValid()) {
@@ -385,6 +524,19 @@ try {
       onNext();
     }
   };
+
+  // If showing EPC details, render that screen
+  if (showEpcDetails && epcData) {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <EPCCard 
+          epcData={epcData} 
+          onConfirm={handleEpcConfirm}
+          onBack={handleEpcBack}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-md mx-auto">
@@ -452,7 +604,7 @@ try {
 
           {isCheckingEligibility && (
             <div className="text-center">
-              <p className="text-sm text-gray-600 mb-2">Checking eligibility...</p>
+              <p className="text-sm text-gray-600 mb-2">Checking eligibility and property details...</p>
               <LoadingDots />
             </div>
           )}
@@ -462,6 +614,8 @@ try {
               setAddresses([]);
               setPostcode("");
               setSelectedAddress(null);
+              setShowEpcDetails(false);
+              setEpcData(null);
             }}
             className="w-full bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
           >
