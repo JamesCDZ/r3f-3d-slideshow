@@ -224,11 +224,12 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
 
             // Fetch EPC data using the same address lines
 // Fix the EPC API call
+// Fetch EPC data using the same address lines
 try {
     console.log("=== FETCHING EPC DATA ===");
     console.log("Using Address Line 1:", addressLine1);
     console.log("Using Address Line 2:", addressLine2);
-    console.log("Using Postcode:", postcode);
+    console.log("Using Postcode:", addressPostcode); // ✅ Use addressPostcode, not postcode
   
     // Build URL with query parameters for fetch
     const epcUrl = new URL('https://energy.swicc.co.uk/api/epc/lookup');
@@ -236,22 +237,98 @@ try {
     if (addressLine2) {
       epcUrl.searchParams.append('address2', addressLine2);
     }
-    epcUrl.searchParams.append('postcode', postcode);
+    epcUrl.searchParams.append('postcode', addressPostcode); // ✅ Use addressPostcode
+  
+    console.log("EPC URL:", epcUrl.toString()); // Debug: log the actual URL being called
   
     const epcResponse = await fetch(epcUrl.toString());
-    const epcData = await epcResponse.json(); // ⚠️ Don't forget to parse the JSON
+    const epcResponseData = await epcResponse.json(); // ✅ Renamed to avoid conflict
   
-    if (epcData.success && epcData.data) {
+    console.log("Raw EPC Response:", epcResponseData); // Debug: log raw response
+  
+    if (epcResponseData.success && epcResponseData.data) {
+      epcData = epcResponseData.data; // ✅ Store the data properly
       console.log("=== EPC DATA FOUND ===");
-      console.log("Full EPC Response:", epcData);
-      // ... rest of your logging
+      console.log("Full EPC Response:", epcResponseData);
+      console.log("Search Criteria Used:", epcResponseData.searchCriteria);
+      console.log("Total Matches Found:", epcResponseData.totalMatches);
+      console.log("");
+      console.log("--- ENERGY RATINGS ---");
+      console.log("Current Energy Rating:", epcData.energyRating.current);
+      console.log("Potential Energy Rating:", epcData.energyRating.potential);
+      console.log("Current Energy Efficiency:", epcData.energyRating.currentEfficiency);
+      console.log("Potential Energy Efficiency:", epcData.energyRating.potentialEfficiency);
+      console.log("");
+      console.log("--- PROPERTY DETAILS ---");
+      console.log("Property Type:", epcData.property.type);
+      console.log("Built Form:", epcData.property.builtForm);
+      console.log("Construction Age Band:", epcData.property.constructionAgeBand);
+      console.log("Total Floor Area:", epcData.property.totalFloorArea);
+      console.log("Tenure:", epcData.property.tenure);
+      console.log("Habitable Rooms:", epcData.property.numberHabitableRooms);
+      console.log("Heated Rooms:", epcData.property.numberHeatedRooms);
+      console.log("");
+      console.log("--- ENERGY COSTS (Annual) ---");
+      console.log("Current Heating Cost: £", epcData.costs.heating.current);
+      console.log("Potential Heating Cost: £", epcData.costs.heating.potential);
+      console.log("Current Lighting Cost: £", epcData.costs.lighting.current);
+      console.log("Potential Lighting Cost: £", epcData.costs.lighting.potential);
+      console.log("Current Hot Water Cost: £", epcData.costs.hotWater.current);
+      console.log("Potential Hot Water Cost: £", epcData.costs.hotWater.potential);
+      console.log("");
+      console.log("--- ENVIRONMENTAL IMPACT ---");
+      console.log("Current Environmental Impact:", epcData.environmental.currentImpact);
+      console.log("Potential Environmental Impact:", epcData.environmental.potentialImpact);
+      console.log("Current CO2 Emissions:", epcData.environmental.co2EmissionsCurrent);
+      console.log("Potential CO2 Emissions:", epcData.environmental.co2EmissionsPotential);
+      console.log("Current Energy Consumption:", epcData.environmental.energyConsumptionCurrent);
+      console.log("Potential Energy Consumption:", epcData.environmental.energyConsumptionPotential);
+      console.log("");
+      console.log("--- PROPERTY FEATURES ---");
+      console.log("Main Fuel Type:", epcData.features.mainFuel);
+      console.log("Mains Gas Available:", epcData.features.mainsGas);
+      console.log("Solar Water Heating:", epcData.features.solarWaterHeating);
+      console.log("Wind Turbine Count:", epcData.features.windTurbineCount);
+      console.log("Low Energy Lighting %:", epcData.features.lowEnergyLighting);
+      console.log("Open Fireplaces:", epcData.features.numberOpenFireplaces);
+      console.log("Multi Glaze Proportion:", epcData.features.multiGlazeProportion);
+      console.log("");
+      console.log("--- BUILDING ELEMENTS ---");
+      console.log("Walls:", epcData.buildingElements.walls.description);
+      console.log("Walls Energy Efficiency:", epcData.buildingElements.walls.energyEfficiency);
+      console.log("Roof:", epcData.buildingElements.roof.description);
+      console.log("Roof Energy Efficiency:", epcData.buildingElements.roof.energyEfficiency);
+      console.log("Floor:", epcData.buildingElements.floor.description);
+      console.log("Floor Energy Efficiency:", epcData.buildingElements.floor.energyEfficiency);
+      console.log("Windows:", epcData.buildingElements.windows.description);
+      console.log("Windows Energy Efficiency:", epcData.buildingElements.windows.energyEfficiency);
+      console.log("Main Heating:", epcData.buildingElements.mainHeating.description);
+      console.log("Main Heating Energy Efficiency:", epcData.buildingElements.mainHeating.energyEfficiency);
+      console.log("Hot Water:", epcData.buildingElements.hotWater.description);
+      console.log("Hot Water Energy Efficiency:", epcData.buildingElements.hotWater.energyEfficiency);
+      console.log("");
+      console.log("--- CERTIFICATE INFO ---");
+      console.log("Inspection Date:", epcData.certificate.inspectionDate);
+      console.log("Lodgement Date:", epcData.certificate.lodgementDate);
+      console.log("Transaction Type:", epcData.certificate.transactionType);
+      console.log("Building Reference Number:", epcData.certificate.buildingReferenceNumber);
+      console.log("UPRN:", epcData.certificate.uprn);
+      console.log("Local Authority:", epcData.administrative.localAuthorityLabel);
+      console.log("======================");
     } else {
       console.log("=== NO EPC DATA FOUND ===");
-      console.log("EPC Response:", epcData);
+      console.log("EPC Response:", epcResponseData);
+      console.log("Search Criteria:", epcResponseData?.searchCriteria);
+      console.log("Message:", epcResponseData?.message);
+      console.log("========================");
+      epcData = null;
     }
   } catch (epcError) {
     console.error('=== EPC LOOKUP ERROR ===');
     console.error('Error fetching EPC data:', epcError);
+    console.log("EPC lookup failed, continuing without EPC data");
+    console.log("========================");
+    epcData = null;
   }
 
       const addressData = {
