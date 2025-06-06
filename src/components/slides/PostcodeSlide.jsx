@@ -18,186 +18,154 @@ const LoadingDots = () => (
 );
 
 const EPCCard = ({ epcData, onConfirm, onBack }) => {
-  const getEnergyRatingColor = (rating) => {
-    const colors = {
-      'A': 'bg-green-600',
-      'B': 'bg-green-500', 
-      'C': 'bg-yellow-500',
-      'D': 'bg-orange-500',
-      'E': 'bg-red-500',
-      'F': 'bg-red-600',
-      'G': 'bg-red-700'
+    const getEnergyRatingColor = (rating) => {
+      const colors = {
+        'A': 'bg-green-600',
+        'B': 'bg-green-500', 
+        'C': 'bg-yellow-500',
+        'D': 'bg-orange-500',
+        'E': 'bg-red-500',
+        'F': 'bg-red-600',
+        'G': 'bg-red-700'
+      };
+      return colors[rating] || 'bg-gray-500';
     };
-    return colors[rating] || 'bg-gray-500';
-  };
-
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-GB', {
-      style: 'currency',
-      currency: 'GBP',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(amount);
-  };
-
-  return (
-    <div className="animate-fade-in-up">
-      <h2 className="text-2xl md:text-3xl mb-4 font-extrabold text-center">
-        Property Details Found
-      </h2>
-      <p className="text-opacity-80 mb-6 text-center">
-        We found your property's energy performance details. Please confirm these are correct.
-      </p>
-
-      <div className="bg-white rounded-lg shadow-lg p-6 mb-6 text-left max-h-96 overflow-y-auto">
-        {/* Property Address */}
-        <div className="mb-4 pb-4 border-b border-gray-200">
-          <h3 className="font-semibold text-lg text-gray-800 mb-2">Property Address</h3>
-          <p className="text-gray-600">{epcData.address?.fullAddress || 'Address not available'}</p>
-        </div>
-
-        {/* Energy Rating */}
-        <div className="mb-4 pb-4 border-b border-gray-200">
-          <h3 className="font-semibold text-lg text-gray-800 mb-3">Energy Performance</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="text-center">
-              <p className="text-sm text-gray-600 mb-2">Current Rating</p>
-              <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center text-white font-bold text-xl ${getEnergyRatingColor(epcData.energyRating?.current)}`}>
-                {epcData.energyRating?.current || 'N/A'}
+  
+    const formatCurrency = (amount) => {
+      return new Intl.NumberFormat('en-GB', {
+        style: 'currency',
+        currency: 'GBP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(amount);
+    };
+  
+    const calculateTotalAnnualCost = () => {
+      if (!epcData.costs) return null;
+      
+      const heating = epcData.costs.heating?.current || 0;
+      const lighting = epcData.costs.lighting?.current || 0;
+      const hotWater = epcData.costs.hotWater?.current || 0;
+      
+      return heating + lighting + hotWater;
+    };
+  
+    const calculatePotentialSavings = () => {
+      if (!epcData.costs) return null;
+      
+      const currentTotal = calculateTotalAnnualCost();
+      const potentialHeating = epcData.costs.heating?.potential || epcData.costs.heating?.current || 0;
+      const potentialLighting = epcData.costs.lighting?.potential || epcData.costs.lighting?.current || 0;
+      const potentialHotWater = epcData.costs.hotWater?.potential || epcData.costs.hotWater?.current || 0;
+      
+      const potentialTotal = potentialHeating + potentialLighting + potentialHotWater;
+      
+      return currentTotal && potentialTotal ? currentTotal - potentialTotal : null;
+    };
+  
+    return (
+      <div className="animate-fade-in-up space-y-4">
+        {/* Current Energy Costs - Most Important for Switching */}
+        <div className="bg-white rounded-lg shadow-lg p-4">
+          <h3 className="font-semibold text-lg text-gray-800 mb-3 text-center">Current Energy Spending</h3>
+          
+          {calculateTotalAnnualCost() && (
+            <div className="text-center mb-4">
+              <div className="text-3xl font-bold text-red-600 mb-1">
+                {formatCurrency(calculateTotalAnnualCost())}
               </div>
-              <p className="text-xs text-gray-500 mt-1">{epcData.energyRating?.currentEfficiency || 0} points</p>
+              <p className="text-sm text-gray-600">per year</p>
+              <p className="text-xs text-gray-500 mt-1">
+                ≈ {formatCurrency(Math.round(calculateTotalAnnualCost() / 12))}/month
+              </p>
             </div>
-            <div className="text-center">
-              <p className="text-sm text-gray-600 mb-2">Potential Rating</p>
-              <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center text-white font-bold text-xl ${getEnergyRatingColor(epcData.energyRating?.potential)}`}>
-                {epcData.energyRating?.potential || 'N/A'}
-              </div>
-              <p className="text-xs text-gray-500 mt-1">{epcData.energyRating?.potentialEfficiency || 0} points</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Property Details */}
-        <div className="mb-4 pb-4 border-b border-gray-200">
-          <h3 className="font-semibold text-lg text-gray-800 mb-3">Property Information</h3>
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <div>
-              <span className="text-gray-600">Property Type:</span>
-              <span className="ml-2 font-medium text-gray-800">{epcData.property?.type || 'N/A'}</span>
-            </div>
-            <div>
-              <span className="text-gray-600">Built:</span>
-              <span className="ml-2 font-medium text-gray-800">{epcData.property?.constructionAgeBand || 'N/A'}</span>
-            </div>
-            <div>
-              <span className="text-gray-600">Floor Area:</span>
-              <span className="ml-2 font-medium text-gray-800">{epcData.property?.totalFloorArea || 'N/A'} m²</span>
-            </div>
-            <div>
-              <span className="text-gray-600">Rooms:</span>
-              <span className="ml-2 font-medium text-gray-800">{epcData.property?.numberHabitableRooms || 'N/A'}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Annual Energy Costs */}
-        {epcData.costs && (
-          <div className="mb-4 pb-4 border-b border-gray-200">
-            <h3 className="font-semibold text-lg text-gray-800 mb-3">Annual Energy Costs</h3>
-            <div className="space-y-2 text-sm">
+          )}
+  
+          {/* Breakdown */}
+          {epcData.costs && (
+            <div className="grid grid-cols-3 gap-2 text-xs">
               {epcData.costs.heating && (
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Heating:</span>
-                  <span className="font-medium text-gray-800">
-                    {formatCurrency(epcData.costs.heating.current)}
-                    {epcData.costs.heating.potential && epcData.costs.heating.potential !== epcData.costs.heating.current && (
-                      <span className="text-green-600 ml-2">→ {formatCurrency(epcData.costs.heating.potential)}</span>
-                    )}
-                  </span>
-                </div>
-              )}
-              {epcData.costs.lighting && (
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Lighting:</span>
-                  <span className="font-medium text-gray-800">
-                    {formatCurrency(epcData.costs.lighting.current)}
-                    {epcData.costs.lighting.potential && epcData.costs.lighting.potential !== epcData.costs.lighting.current && (
-                      <span className="text-green-600 ml-2">→ {formatCurrency(epcData.costs.lighting.potential)}</span>
-                    )}
-                  </span>
+                <div className="text-center bg-red-50 rounded p-2">
+                  <p className="text-gray-600">Heating</p>
+                  <p className="font-semibold text-red-700">{formatCurrency(epcData.costs.heating.current)}</p>
                 </div>
               )}
               {epcData.costs.hotWater && (
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Hot Water:</span>
-                  <span className="font-medium text-gray-800">
-                    {formatCurrency(epcData.costs.hotWater.current)}
-                    {epcData.costs.hotWater.potential && epcData.costs.hotWater.potential !== epcData.costs.hotWater.current && (
-                      <span className="text-green-600 ml-2">→ {formatCurrency(epcData.costs.hotWater.potential)}</span>
-                    )}
-                  </span>
+                <div className="text-center bg-orange-50 rounded p-2">
+                  <p className="text-gray-600">Hot Water</p>
+                  <p className="font-semibold text-orange-700">{formatCurrency(epcData.costs.hotWater.current)}</p>
+                </div>
+              )}
+              {epcData.costs.lighting && (
+                <div className="text-center bg-yellow-50 rounded p-2">
+                  <p className="text-gray-600">Lighting</p>
+                  <p className="font-semibold text-yellow-700">{formatCurrency(epcData.costs.lighting.current)}</p>
                 </div>
               )}
             </div>
+          )}
+        </div>
+  
+        {/* Property Info & Savings Potential */}
+        <div className="bg-white rounded-lg shadow-lg p-4 space-y-3">
+          {/* Property basics */}
+          <div className="text-center border-b border-gray-100 pb-2">
+            <p className="text-sm font-medium text-gray-800">
+              {epcData.property?.type || 'Property'} • {epcData.property?.totalFloorArea || 'N/A'} m² • {epcData.property?.numberHabitableRooms || 'N/A'} rooms
+            </p>
+            <p className="text-xs text-gray-600">Built: {epcData.property?.constructionAgeBand || 'Unknown'}</p>
           </div>
-        )}
-
-        {/* Key Building Elements */}
-        {epcData.buildingElements && (
-          <div className="mb-4">
-            <h3 className="font-semibold text-lg text-gray-800 mb-3">Building Elements</h3>
-            <div className="space-y-2 text-sm">
-              {epcData.buildingElements.walls && (
-                <div>
-                  <span className="text-gray-600">Walls:</span>
-                  <span className="ml-2 text-gray-800">{epcData.buildingElements.walls.description}</span>
-                  <span className="ml-2 text-blue-600">({epcData.buildingElements.walls.energyEfficiency})</span>
-                </div>
-              )}
-              {epcData.buildingElements.roof && (
-                <div>
-                  <span className="text-gray-600">Roof:</span>
-                  <span className="ml-2 text-gray-800">{epcData.buildingElements.roof.description}</span>
-                  <span className="ml-2 text-blue-600">({epcData.buildingElements.roof.energyEfficiency})</span>
-                </div>
-              )}
-              {epcData.buildingElements.windows && (
-                <div>
-                  <span className="text-gray-600">Windows:</span>
-                  <span className="ml-2 text-gray-800">{epcData.buildingElements.windows.description}</span>
-                  <span className="ml-2 text-blue-600">({epcData.buildingElements.windows.energyEfficiency})</span>
-                </div>
-              )}
-              {epcData.buildingElements.mainHeating && (
-                <div>
-                  <span className="text-gray-600">Heating:</span>
-                  <span className="ml-2 text-gray-800">{epcData.buildingElements.mainHeating.description}</span>
-                  <span className="ml-2 text-blue-600">({epcData.buildingElements.mainHeating.energyEfficiency})</span>
-                </div>
-              )}
+  
+          {/* Savings potential and energy rating */}
+          <div className="grid grid-cols-2 gap-3">
+            {/* Potential savings */}
+            {calculatePotentialSavings() && calculatePotentialSavings() > 0 && (
+              <div className="text-center bg-green-50 rounded p-2">
+                <p className="text-xs text-gray-600">Potential Savings</p>
+                <p className="font-bold text-green-700">{formatCurrency(calculatePotentialSavings())}</p>
+                <p className="text-xs text-green-600">per year</p>
+              </div>
+            )}
+            
+            {/* Current energy rating */}
+            <div className="text-center">
+              <p className="text-xs text-gray-600 mb-1">Energy Rating</p>
+              <div className={`w-10 h-10 mx-auto rounded-full flex items-center justify-center text-white font-bold ${getEnergyRatingColor(epcData.energyRating?.current)}`}>
+                {epcData.energyRating?.current || 'N/A'}
+              </div>
             </div>
           </div>
-        )}
+  
+          {/* Fuel type - important for tariff matching */}
+          {epcData.features?.mainFuel && (
+            <div className="text-center bg-blue-50 rounded p-2">
+              <p className="text-xs text-gray-600">Main Fuel Type</p>
+              <p className="font-medium text-blue-800">{epcData.features.mainFuel}</p>
+              {epcData.features.mainsGas && (
+                <p className="text-xs text-blue-600">✓ Mains Gas Available</p>
+              )}
+            </div>
+          )}
+        </div>
+  
+        {/* Action buttons */}
+        <div className="flex gap-3">
+          <button
+            onClick={onBack}
+            className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto text-sm"
+          >
+            Search Again
+          </button>
+          <button
+            onClick={onConfirm}
+            className="flex-1 bg-[#4A9B8E] hover:bg-[#3d8a7b] text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto text-sm"
+          >
+            Confirm & Continue
+          </button>
+        </div>
       </div>
-
-      <div className="flex gap-4">
-        <button
-          onClick={onBack}
-          className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
-        >
-          Search Again
-        </button>
-        <button
-          onClick={onConfirm}
-          className="flex-1 bg-[#4A9B8E] hover:bg-[#3d8a7b] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
-        >
-          Confirm & Continue
-        </button>
-      </div>
-    </div>
-  );
-};
-
+    );
+  };
 export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
   const [postcode, setPostcode] = useState("");
   const [postcodeError, setPostcodeError] = useState("");
