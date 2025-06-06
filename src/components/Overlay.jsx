@@ -451,7 +451,7 @@ export const Overlay = () => {
           </div>
         )}
 
-        <div className="bg-gradient-to-t from-white/90 pt-20 pb-24 md:pb-24 p-4 flex items-center flex-col">
+        <div className="bg-gradient-to-t from-white/90 pt-20 pb-32 md:pb-24 p-4 flex items-center flex-col">
           {renderSlideContent()}
         </div>
       </div>
