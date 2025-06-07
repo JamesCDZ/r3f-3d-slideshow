@@ -62,6 +62,15 @@ const EPCCard = ({ epcData, onConfirm, onBack }) => {
       
       return currentTotal && potentialTotal ? currentTotal - potentialTotal : null;
     };
+
+    // Helper function to check if built date should be shown
+    const shouldShowBuiltDate = () => {
+      const constructionAge = epcData.property?.constructionAgeBand;
+      return constructionAge && 
+             constructionAge !== 'NO DATA!' && 
+             constructionAge !== 'Unknown' && 
+             constructionAge.trim() !== '';
+    };
   
     return (
       <div className="animate-fade-in-up space-y-4" style={{ paddingTop: '2rem' }}>
@@ -77,9 +86,12 @@ const EPCCard = ({ epcData, onConfirm, onBack }) => {
             <p className="text-sm text-gray-600">
               {epcData.property?.totalFloorArea || 'N/A'} m² 
             </p>
-            <p className="text-xs text-gray-500 mt-1">
-              Built: {epcData.property?.constructionAgeBand || 'Unknown'}
-            </p>
+            {/* Only show built date if it exists and is not "NO DATA!" */}
+            {shouldShowBuiltDate() && (
+              <p className="text-xs text-gray-500 mt-1">
+                Built: {epcData.property.constructionAgeBand}
+              </p>
+            )}
           </div>
   
           {/* Key Property Features */}
@@ -137,6 +149,7 @@ const EPCCard = ({ epcData, onConfirm, onBack }) => {
       </div>
     );
   };
+
 export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
   const [postcode, setPostcode] = useState("");
   const [postcodeError, setPostcodeError] = useState("");
@@ -494,7 +507,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
               value={postcode}
               onChange={handlePostcodeInput}
               onKeyPress={(e) => e.key === 'Enter' && findAddress()}
-              placeholder="Enter your postcode eg: WS8 6BB"
+              placeholder="Enter your postcode eg: KW15 1GW"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pointer-events-auto text-black"
               disabled={isLoadingAddresses}
             />
