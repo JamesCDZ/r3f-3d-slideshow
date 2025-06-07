@@ -19,7 +19,7 @@ export const WelcomeSlide = ({ onNext }) => {
       
       {/* Main value proposition */}
       <p className="text-base md:text-lg opacity-90 mb-6 max-w-2xl mx-auto">
-        We use EPC certificates and real-time pricing data to find deals tailored to your home.
+        We have access to EPC certificates and real-time pricing data to find deals tailored to your home.
         <span className="font-semibold text-green-700"> Save up to £500+ per year.</span>
       </p>
 
