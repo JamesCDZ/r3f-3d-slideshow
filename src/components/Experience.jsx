@@ -24,7 +24,7 @@ export const scenes = [
     range: "50k",
   },
   {
-    path: "models/control.glb",
+    path: "models/controlcomp.glb",
     mainColor: "#c0ffe1",
     name: "Your home",
     description: "Tell us more about your house",
