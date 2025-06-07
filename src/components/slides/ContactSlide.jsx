@@ -37,10 +37,10 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
   return (
     <div className="max-w-md mx-auto">
       <h1 className="text-3xl md:text-4xl mb-4 font-extrabold text-center">
-        Almost there!
+        Your account!
       </h1>
       <p className="text-opacity-80 mb-6 text-center">
-        Enter your details to get personalized energy recommendations
+        Enter your details to get personalised energy recommendations
       </p>
       
       <div className="space-y-4">
@@ -106,7 +106,7 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
             onClick={handleSubmit}
             className="flex-1 bg-[#4A9B8E] hover:bg-[#3d8a7b] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
           >
-            Continue
+          Confirm & Continue
           </button>
         </div>
       </div>
