@@ -106,7 +106,7 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
             onClick={handleSubmit}
             className="flex-1 bg-[#4A9B8E] hover:bg-[#3d8a7b] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
           >
-            Get My Deals
+            Continue
           </button>
         </div>
       </div>
