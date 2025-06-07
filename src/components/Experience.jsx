@@ -15,7 +15,7 @@ import { Scene } from "./Scene";
 
 export const scenes = [
   {
-    path: "models/labcomp.glb",
+    path: "models/labnew.glb",
     mainColor: "#f9c0ff",
     name: "The Energy Lab",
     description:
@@ -24,7 +24,7 @@ export const scenes = [
     range: "50k",
   },
   {
-    path: "models/controlcomp.glb",
+    path: "models/controlnew.glb",
     mainColor: "#c0ffe1",
     name: "Your home",
     description: "Tell us more about your house",
@@ -32,7 +32,7 @@ export const scenes = [
     range: "50k",
   },
   {
-    path: "models/semi_scene2.glb",
+    path: "models/connect.glb",
     mainColor: "#ffdec0",
     name: "Confirm Details",
     description: "Let's find you some energy deals",

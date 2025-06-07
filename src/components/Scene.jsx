@@ -107,6 +107,6 @@ export const Scene = ({ mainColor, path, ...props }) => {
   );
 };
 
-useGLTF.preload("/models/labcomp.glb");
-useGLTF.preload("/models/controlcomp.glb");
-useGLTF.preload("/models/semi_scene2.glb");
+useGLTF.preload("/models/labnew.glb");
+useGLTF.preload("/models/controlnew.glb");
+useGLTF.preload("/models/connect.glb");
