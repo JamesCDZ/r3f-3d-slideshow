@@ -128,6 +128,6 @@ export const Scene = ({ mainColor, path, ...props }) => {
   );
 };
 
-useGLTF.preload("/models/labnewcomp.glb");
-useGLTF.preload("/models/controlnewcomp.glb");
-useGLTF.preload("/models/connectcomp.glb");
+useGLTF.preload("models/labnewcomp.glb");
+useGLTF.preload("models/controlnewcomp.glb");
+useGLTF.preload("models/connectcomp.glb");
