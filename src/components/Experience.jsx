@@ -15,7 +15,7 @@ import { Scene } from "./Scene";
 
 export const scenes = [
   {
-    path: "models/lab2.glb",
+    path: "models/labcomp.glb",
     mainColor: "#f9c0ff",
     name: "The Energy Lab",
     description:
