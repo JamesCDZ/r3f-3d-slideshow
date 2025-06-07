@@ -125,7 +125,7 @@ export const Overlay = () => {
       >
         {/* Logo with backdrop blur */}
         <div className="relative mt-8 flex justify-center">
-          <div className="backdrop-blur-md bg-white/20 rounded-xl p-4 shadow-lg border border-white/30">
+          <div className="rounded-xl p-4">
             <img 
               src="/logo.png" 
               className="w-80 mx-auto"
@@ -135,39 +135,7 @@ export const Overlay = () => {
         </div>
         
         {/* Navigation arrows - only show on welcome slide */}
-        {displaySlide === 0 && (
-          <div className="absolute top-0 bottom-0 left-0 right-0 flex-1 flex items-center justify-between p-4">
-            {/* Left arrow with backdrop blur */}
-            <div className="backdrop-blur-md bg-white/20 rounded-full p-3 shadow-lg border border-white/30 hover:bg-white/30 transition-all duration-200">
-              <svg
-                onClick={prevSlide}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6 pointer-events-auto hover:opacity-60 transition-opacity cursor-pointer"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-              </svg>
-            </div>
 
-            {/* Right arrow with backdrop blur */}
-            <div className="backdrop-blur-md bg-white/20 rounded-full p-3 shadow-lg border border-white/30 hover:bg-white/30 transition-all duration-200">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6 pointer-events-auto hover:opacity-60 transition-opacity cursor-pointer"
-                onClick={nextSlide}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-              </svg>
-            </div>
-          </div>
-        )}
 
         {/* Main content area with enhanced backdrop blur */}
         <div className="relative">
