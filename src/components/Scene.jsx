@@ -11,11 +11,15 @@ import {
 
 import * as THREE from "three";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import { DEG2RAD } from "three/src/math/MathUtils";
 
 export const Scene = ({ mainColor, path, ...props }) => {
   const { nodes, materials, scene } = useGLTF(path);
+  const orbitControlsRef = useRef();
+  const timeRef = useRef(0);
+  
   useEffect(() => {
     scene.traverse((child) => {
       if (child.isMesh) {
@@ -24,19 +28,36 @@ export const Scene = ({ mainColor, path, ...props }) => {
       }
     });
   }, [scene]);
+
+  // Create oscillating camera movement
+  useFrame((state, delta) => {
+    if (orbitControlsRef.current) {
+      timeRef.current += delta * 0.3; // Control speed of oscillation
+      
+      // Calculate oscillation angle (50 degrees = ~0.87 radians)
+      const oscillationAngle = Math.sin(timeRef.current) * (50 * DEG2RAD);
+      
+      // Apply the oscillation to the azimuth angle
+      orbitControlsRef.current.setAzimuthalAngle(oscillationAngle);
+      orbitControlsRef.current.update();
+    }
+  });
+
   const ratioScale = Math.min(1.2, Math.max(0.5, window.innerWidth / 1920));
+  
   return (
     <>
       <color attach="background" args={["#ffffff"]} />
       <group {...props} dispose={null}>
         <PerspectiveCamera makeDefault position={[3, 3, 8]} near={0.5} />
         <OrbitControls
-          autoRotate
+          ref={orbitControlsRef}
           enablePan={false}
+          enableZoom={false}
+          enableRotate={false} // Disable manual rotation since we're controlling it
           maxPolarAngle={DEG2RAD * 75}
           minDistance={6}
           maxDistance={10}
-          autoRotateSpeed={0.5}
         />
         <primitive object={scene} scale={ratioScale} />
         <ambientLight intensity={0.1} color="pink" />
