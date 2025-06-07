@@ -137,7 +137,7 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
     <div className="max-w-lg mx-auto relative">
       {/* Deals Display */}
       {showDeals && (
-        <div className={`transition-opacity duration-800 ${dealsVisible ? 'opacity-60' : 'opacity-0'}`}>
+        <div>
           <div className="text-center mb-4">
             <h1 className="text-xl md:text-3xl font-extrabold text-green-600 mb-2">
               🎉 Great News!
@@ -159,6 +159,7 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
                 deal={deal} 
                 index={index}
                 isVisible={dealsVisible}
+                className={`transition-opacity duration-800 ${dealsVisible ? 'opacity-60' : 'opacity-0'}`}
               />
             ))}
           </div>
