@@ -143,7 +143,7 @@ export const Overlay = () => {
           <div className="absolute inset-0"></div>
           
           {/* Content container */}
-          <div className="relative pt-4 md:pt-16 pb-10 md:pb-24 p-4 flex items-center flex-col">
+          <div className="relative pt-4 md:pt-16 pb-8 md:pb-24 p-4 flex items-center flex-col">
             {/* Additional content background for better readability */}
             <div className="backdrop-blur-sm bg-white/40 rounded-2xl p-2 md:p-8 shadow-xl border border-white/40 max-w-4xl w-full">
               {renderSlideContent()}

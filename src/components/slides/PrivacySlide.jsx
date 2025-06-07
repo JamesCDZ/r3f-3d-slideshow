@@ -19,7 +19,7 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
           <svg className="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
-          <h1 className="text-2xl md:text-4xl font-extrabold">
+          <h1 className="text-xl md:text-4xl font-extrabold">
             Privacy Settings
           </h1>
         </div>
@@ -31,7 +31,7 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
           <svg className="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
-          <h3 className="font-semibold text-gray-800 text-[14px]">Your Data Preferences</h3>
+          <h3 className="font-semibold text-gray-800 text-[12px]">Your Data Preferences</h3>
           <span className="ml-auto bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">GDPR Compliant</span>
         </div>
         
@@ -51,7 +51,7 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
                 onChange={(e) => setMarketingOptOut(e.target.checked)}
                 className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 pointer-events-auto"
               />
-              <label htmlFor="marketingOptOut" className="text-sm text-gray-700 leading-tight text-[14px]">
+              <label htmlFor="marketingOptOut" className="text-sm text-gray-700 leading-tight text-[11px]">
                 Tomorrow Media Group would like to send you information by email, telephone and SMS on our other products & services which may be of interest. Tick here if you would rather not receive these.
               </label>
             </div>
@@ -81,13 +81,13 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
         <button
           type="button"
           onClick={onBack}
-          className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+          className="flex-1 bg-gray-500  text-[12px] hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
         >
           Back
         </button>
         <button
           onClick={handleFinalSubmit}
-          className="flex-1 bg-[#4A9B8E] text-[14px] hover:bg-[#3A8B7E] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto flex items-center justify-center"
+          className="flex-1 bg-[#4A9B8E] text-[12px] hover:bg-[#3A8B7E] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto flex items-center justify-center"
         >
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
