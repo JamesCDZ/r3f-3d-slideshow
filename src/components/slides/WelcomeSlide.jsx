@@ -46,13 +46,6 @@ export const WelcomeSlide = ({ onNext }) => {
         </div>
       </div>
 
-      {/* Trust indicators - compact */}
-      <div className="flex justify-center gap-4 mb-6 text-xs opacity-80">
-        <span>✓ 500k+ customers</span>
-        <span>✓ 4.8/5 rated</span>
-        <span>✓ Avg. £420 saved</span>
-      </div>
-
       {/* Enhanced CTA */}
       <div className="space-y-2">
         <button
