@@ -15,7 +15,7 @@ const mockDeals = [
   },
   {
     id: 2,
-    supplier: 'Bulb Energy',
+    supplier: 'British Gas',
     tariff: 'Simple Energy',
     type: 'Fixed 12 months',
     annualCost: 1289,
