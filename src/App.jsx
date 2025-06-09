@@ -18,8 +18,8 @@ function App() {
 }
 
 // ✅ Preload all models at app startup
-useGLTF.preload("models/labnew.glb");
-useGLTF.preload("models/controlnew.glb");
-useGLTF.preload("models/connect.glb");
+useGLTF.preload("models/labnewcomp.glb");
+useGLTF.preload("models/controlnewcomp.glb");
+useGLTF.preload("models/connectcomp.glb");
 
 export default App;
