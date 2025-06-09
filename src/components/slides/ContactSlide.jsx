@@ -40,7 +40,7 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
         Your account!
       </h1>
       <p className="text-opacity-80 mb-6 text-center">
-        Enter your details to get personalised energy recommendations
+        These details are to facilitate your energy switch. We will never spam you. 
       </p>
       
       <div className="space-y-4">
