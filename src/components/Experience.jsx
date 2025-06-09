@@ -1,6 +1,5 @@
 import {
   CameraControls,
-  Dodecahedron,
   Environment,
   Grid,
   MeshDistortMaterial,
