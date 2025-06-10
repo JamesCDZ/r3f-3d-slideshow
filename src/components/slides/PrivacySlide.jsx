@@ -235,11 +235,6 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
       {showSuccess && (
         <div className="animate-fade-in-up text-center py-8">
           <div className="mb-6">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
             <h1 className="text-2xl md:text-3xl font-extrabold text-green-600 mb-2">
               Thank You!
             </h1>
