@@ -233,7 +233,7 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
       console.log('Submitting to Nuxt API:', apiPayload);
       
       // Submit to your existing Nuxt API endpoint
-      const response = await fetch('https://energy.swicc.co.uk/api/submitLead', {
+      const response = await fetch('https://energy.swicc.co.uk/api/submitLeadLab', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
