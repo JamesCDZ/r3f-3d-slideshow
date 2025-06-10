@@ -243,9 +243,6 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
             <h1 className="text-2xl md:text-3xl font-extrabold text-green-600 mb-2">
               Thank You!
             </h1>
-            <p className="text-lg text-gray-700 mb-2">
-              Your details have been submitted successfully
-            </p>
           </div>
           
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
