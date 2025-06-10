@@ -17,9 +17,9 @@ export const WelcomeSlide = ({ onNext }) => {
       {/* Process Steps - Responsive Layout */}
       <div className="mb-6 px-4">
         {/* Mobile: Vertical Stack */}
-        <div className="flex flex-col gap-4 md:hidden">
+        <div className="flex flex-col gap-4 md:hidden max-w-sm mx-auto">
           {/* Step 1 */}
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-white/40 relative w-full">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-black md:border-white/40 relative">
             <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#4a9b8d] text-white rounded-full flex items-center justify-center text-xs font-bold">
               1
             </div>
@@ -31,10 +31,16 @@ export const WelcomeSlide = ({ onNext }) => {
             <h3 className="font-semibold text-gray-800 text-sm">Data Analysis</h3>
             <p className="text-gray-700 text-xs">EPC & property data from postcode</p>
           </div>
-      
+          
+          {/* Arrow down for mobile */}
+          <div className="flex justify-center">
+            <svg className="w-6 h-6 text-[#4a9b8d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
           
           {/* Step 2 */}
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-white/40 relative w-full">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-black md:border-white/40 relative">
             <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#4a9b8d] text-white rounded-full flex items-center justify-center text-xs font-bold">
               2
             </div>
@@ -46,10 +52,16 @@ export const WelcomeSlide = ({ onNext }) => {
             <h3 className="font-semibold text-gray-800 text-sm">Contact Details</h3>
             <p className="text-gray-700 text-xs">Name, email & phone number</p>
           </div>
-      
+          
+          {/* Arrow down for mobile */}
+          <div className="flex justify-center">
+            <svg className="w-6 h-6 text-[#4a9b8d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
           
           {/* Step 3 */}
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-white/40 relative w-full">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-black md:border-white/40 relative">
             <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#4a9b8d] text-white rounded-full flex items-center justify-center text-xs font-bold">
               3
             </div>
