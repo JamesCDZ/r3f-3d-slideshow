@@ -4,18 +4,18 @@ export const WelcomeSlide = ({ onNext }) => {
   return (
     <div className="text-center max-w-3xl mx-auto">
       {/* Compelling subheading */}
-      <h2 className="text-lg md:text-xl mb-4 font-semibold text-gray-800">
+      <h2 className="text-lg md:text-xl mb-2 font-semibold text-gray-800">
         Data Driven Energy Deals
       </h2>
       
       {/* Main value proposition */}
-      <p className="text-base md:text-lg opacity-90 mb-6 max-w-2xl mx-auto">
+      <p className="text-base md:text-lg opacity-90 mb-2 max-w-2xl mx-auto">
         We use EPC certificates and real-time pricing data to find deals tailored to your home.
         <span className="font-semibold text-green-700"> Save up to £500+ per year.</span>
       </p>
 
       {/* Process Steps - Responsive Layout */}
-      <div className="mb-6 px-4">
+      <div className="mb-2 px-4">
         {/* Mobile: Vertical Stack */}
         <div className="flex flex-col gap-4 md:hidden max-w-sm mx-auto">
           {/* Step 1 */}
@@ -32,13 +32,6 @@ export const WelcomeSlide = ({ onNext }) => {
             <p className="text-gray-700 text-xs">EPC & property data from postcode</p>
           </div>
           
-          {/* Arrow down for mobile */}
-          <div className="flex justify-center">
-            <svg className="w-6 h-6 text-[#4a9b8d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </div>
-          
           {/* Step 2 */}
           <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-black md:border-white/40 relative">
             <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#4a9b8d] text-white rounded-full flex items-center justify-center text-xs font-bold">
@@ -51,13 +44,6 @@ export const WelcomeSlide = ({ onNext }) => {
             </div>
             <h3 className="font-semibold text-gray-800 text-sm">Contact Details</h3>
             <p className="text-gray-700 text-xs">Name, email & phone number</p>
-          </div>
-          
-          {/* Arrow down for mobile */}
-          <div className="flex justify-center">
-            <svg className="w-6 h-6 text-[#4a9b8d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
           </div>
           
           {/* Step 3 */}
