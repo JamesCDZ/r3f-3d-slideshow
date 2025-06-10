@@ -18,144 +18,100 @@ const LoadingDots = () => (
 );
 
 const EPCCard = ({ epcData, onConfirm, onBack }) => {
-    const getEnergyRatingColor = (rating) => {
-      const colors = {
-        'A': 'bg-green-600',
-        'B': 'bg-green-500', 
-        'C': 'bg-yellow-500',
-        'D': 'bg-orange-500',
-        'E': 'bg-red-500',
-        'F': 'bg-red-600',
-        'G': 'bg-red-700'
-      };
-      return colors[rating] || 'bg-gray-500';
+  const getEnergyRatingColor = (rating) => {
+    const colors = {
+      'A': 'bg-green-600',
+      'B': 'bg-green-500', 
+      'C': 'bg-yellow-500',
+      'D': 'bg-orange-500',
+      'E': 'bg-red-500',
+      'F': 'bg-red-600',
+      'G': 'bg-red-700'
     };
-  
-    const formatCurrency = (amount) => {
-      return new Intl.NumberFormat('en-GB', {
-        style: 'currency',
-        currency: 'GBP',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      }).format(amount);
-    };
-  
-    const calculateTotalAnnualCost = () => {
-      if (!epcData.costs) return null;
-      
-      const heating = epcData.costs.heating?.current || 0;
-      const lighting = epcData.costs.lighting?.current || 0;
-      const hotWater = epcData.costs.hotWater?.current || 0;
-      
-      return heating + lighting + hotWater;
-    };
-  
-    const calculatePotentialSavings = () => {
-      if (!epcData.costs) return null;
-      
-      const currentTotal = calculateTotalAnnualCost();
-      const potentialHeating = epcData.costs.heating?.potential || epcData.costs.heating?.current || 0;
-      const potentialLighting = epcData.costs.lighting?.potential || epcData.costs.lighting?.current || 0;
-      const potentialHotWater = epcData.costs.hotWater?.potential || epcData.costs.hotWater?.current || 0;
-      
-      const potentialTotal = potentialHeating + potentialLighting + potentialHotWater;
-      
-      return currentTotal && potentialTotal ? currentTotal - potentialTotal : null;
-    };
+    return colors[rating] || 'bg-gray-500';
+  };
 
-    // Helper function to check if built date should be shown
-    const shouldShowBuiltDate = () => {
-      const constructionAge = epcData.property?.constructionAgeBand;
-      return constructionAge && 
-             constructionAge !== 'NO DATA!' && 
-             constructionAge !== 'Unknown' && 
-             constructionAge.trim() !== '';
-    };
-  
-    return (
-      <div className="animate-fade-in-up space-y-4" style={{ paddingTop: '2rem' }}>
-        {/* Property Overview & Key Details */}
-        <div className="bg-white rounded-lg shadow-lg p-4">
-          <h3 className="font-semibold text-lg text-gray-800 mb-3 text-center">Property Overview</h3>
-          
-          {/* Property Type & Size */}
-          <div className="text-center mb-4">
-            <div className="text-xl font-bold text-blue-600 mb-1">
-              {epcData.property?.type || 'Property Type Unknown'}
-            </div>
-            <p className="text-sm text-gray-600">
-              {epcData.property?.totalFloorArea || 'N/A'} m² 
+  const shouldShowBuiltDate = () => {
+    const constructionAge = epcData.property?.constructionAgeBand;
+    return constructionAge && 
+           constructionAge !== 'NO DATA!' && 
+           constructionAge !== 'Unknown' && 
+           constructionAge.trim() !== '';
+  };
+
+  return (
+    <div className="space-y-4" style={{ paddingTop: '2rem' }}>
+      <div className="bg-white rounded-lg shadow-lg p-4 border">
+        <h3 className="font-semibold text-lg text-gray-800 mb-3 text-center">Property Overview</h3>
+        
+        <div className="text-center mb-4">
+          <div className="text-xl font-bold text-blue-600 mb-1">
+            {epcData.property?.type || 'Property Type Unknown'}
+          </div>
+          <p className="text-sm text-gray-600">
+            {epcData.property?.totalFloorArea || 'N/A'} m² 
+          </p>
+          {shouldShowBuiltDate() && (
+            <p className="text-xs text-gray-500 mt-1">
+              Built: {epcData.property.constructionAgeBand}
             </p>
-            {/* Only show built date if it exists and is not "NO DATA!" */}
-            {shouldShowBuiltDate() && (
-              <p className="text-xs text-gray-500 mt-1">
-                Built: {epcData.property.constructionAgeBand}
-              </p>
-            )}
-          </div>
-  
-          {/* Key Property Features */}
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            {/* Energy Rating */}
-            <div className="text-center bg-blue-50 rounded p-2">
-              <p className="text-gray-600">Energy Rating</p>
-              <div className={`w-8 h-8 mx-auto mt-1 rounded-full flex items-center justify-center text-white font-bold text-sm ${getEnergyRatingColor(epcData.energyRating?.current)}`}>
-                {epcData.energyRating?.current || 'N/A'}
-              </div>
-            </div>
-            
-            {/* Fuel Type */}
-            {epcData.features?.mainFuel && (
-              <div className="text-center bg-green-50 rounded p-2">
-                <p className="text-gray-600">Main Fuel</p>
-                <p className="font-semibold text-green-700 mt-1">{epcData.features.mainFuel}</p>
-              </div>
-            )}
-            
-            {/* Mains Gas Available */}
-            {epcData.features?.mainsGas && (
-              <div className="text-center bg-purple-50 rounded p-2">
-                <p className="text-gray-600">Mains Gas</p>
-                <p className="font-semibold text-purple-700 mt-1">Available</p>
-              </div>
-            )}
-            
-            {/* Property Tenure */}
-            {epcData.property?.tenure && (
-              <div className="text-center bg-orange-50 rounded p-2">
-                <p className="text-gray-600">Tenure</p>
-                <p className="font-semibold text-orange-700 mt-1">{epcData.property.tenure}</p>
-              </div>
-            )}
-          </div>
+          )}
         </div>
-  
-  
-        {/* Action buttons */}
-        <div className="flex gap-3">
-          <button
-            onClick={onBack}
-            className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto text-sm"
-          >
-            Search Again
-          </button>
-          <button
-            onClick={onConfirm}
-            className="flex-1 bg-[#4A9B8E] hover:bg-[#3d8a7b] text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto text-sm"
-          >
-            Confirm & Continue
-          </button>
+
+        <div className="grid grid-cols-2 gap-2 text-xs">
+          <div className="text-center bg-blue-50 rounded p-2">
+            <p className="text-gray-600">Energy Rating</p>
+            <div className={`w-8 h-8 mx-auto mt-1 rounded-full flex items-center justify-center text-white font-bold text-sm ${getEnergyRatingColor(epcData.energyRating?.current)}`}>
+              {epcData.energyRating?.current || 'N/A'}
+            </div>
+          </div>
+          
+          {epcData.features?.mainFuel && (
+            <div className="text-center bg-green-50 rounded p-2">
+              <p className="text-gray-600">Main Fuel</p>
+              <p className="font-semibold text-green-700 mt-1">{epcData.features.mainFuel}</p>
+            </div>
+          )}
+          
+          {epcData.features?.mainsGas && (
+            <div className="text-center bg-purple-50 rounded p-2">
+              <p className="text-gray-600">Mains Gas</p>
+              <p className="font-semibold text-purple-700 mt-1">Available</p>
+            </div>
+          )}
+          
+          {epcData.property?.tenure && (
+            <div className="text-center bg-orange-50 rounded p-2">
+              <p className="text-gray-600">Tenure</p>
+              <p className="font-semibold text-orange-700 mt-1">{epcData.property.tenure}</p>
+            </div>
+          )}
         </div>
       </div>
-    );
-  };
+
+      <div className="flex gap-3">
+        <button
+          onClick={onBack}
+          className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200 text-sm"
+        >
+          Search Again
+        </button>
+        <button
+          onClick={onConfirm}
+          className="flex-1 bg-teal-600 hover:bg-teal-700 text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200 text-sm"
+        >
+          Confirm & Continue
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
   const [postcode, setPostcode] = useState("");
   const [postcodeError, setPostcodeError] = useState("");
   const [isLoadingAddresses, setIsLoadingAddresses] = useState(false);
   const [addresses, setAddresses] = useState([]);
-  const [selectedAddress, setSelectedAddress] = useState(null);
   const [showManualEntry, setShowManualEntry] = useState(false);
   const [isCheckingEligibility, setIsCheckingEligibility] = useState(false);
   const [epcData, setEpcData] = useState(null);
@@ -202,7 +158,6 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
     const value = e.target.value.toUpperCase();
     setPostcode(value);
     setPostcodeError("");
-    setSelectedAddress(null);
     setAddresses([]);
     setShowEpcDetails(false);
     setEpcData(null);
@@ -228,10 +183,8 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       try {
         const response = await fetch(`https://energy.swicc.co.uk/api/addresses/${encodeURIComponent(formattedPostcode)}`);
         const data = await response.json();
-        
 
         if (data && data.success && data.addresses) {
-          // Sort addresses by house number if available
           const sortedAddresses = [...data.addresses].sort((a, b) => {
             const numA = a['Column6'] ? parseInt(a['Column6']) : null;
             const numB = b['Column6'] ? parseInt(b['Column6']) : null;
@@ -294,14 +247,13 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
     }
   };
 
-  // Handle address selection - now automatically continues
-  const handleAddressSelect = async (address = selectedAddress) => {
+  // Handle address selection
+  const handleAddressSelect = async (address) => {
     if (!address) return;
 
     setIsCheckingEligibility(true);
     
     try {
-      // Extract address components
       const addressPostcode = address['Column 0'] || '';
       const streetName = address['Column4'] || '';
       const houseNumber = address['Column6'] || '';
@@ -311,7 +263,6 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       let addressLine1 = '';
       let addressLine2 = '';
       
-      // Construct address lines based on available data
       if (flatNumber && houseName) {
         addressLine1 = `${flatNumber} ${houseName}`;
         addressLine2 = houseNumber ? `${houseNumber} ${streetName}` : streetName;
@@ -332,7 +283,6 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
         }
       }
 
-      // Check eligibility for eco/insulation schemes
       let ecoEligibility = false;
       let baxterKellyEligibility = false;
       let product_id = false;
@@ -355,18 +305,12 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
         }
       } catch (eligibilityError) {
         console.error('Error checking eligibility:', eligibilityError);
-        // For demo, randomly assign eligibility
         ecoEligibility = Math.random() > 0.5;
         baxterKellyEligibility = Math.random() > 0.7;
       }
 
       // Fetch EPC data
       try {
-        console.log("=== FETCHING EPC DATA ===");
-        console.log("Using Address Line 1:", addressLine1);
-        console.log("Using Address Line 2:", addressLine2);
-        console.log("Using Postcode:", addressPostcode);
-      
         const epcUrl = new URL('https://energy.swicc.co.uk/api/epc/lookup');
         epcUrl.searchParams.append('address1', addressLine1);
         if (addressLine2) {
@@ -374,23 +318,15 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
         }
         epcUrl.searchParams.append('postcode', addressPostcode);
       
-        console.log("EPC URL:", epcUrl.toString());
-      
         const epcResponse = await fetch(epcUrl.toString());
         const epcResponseData = await epcResponse.json();
       
-        console.log("Raw EPC Response:", epcResponseData);
-      
         if (epcResponseData.success && epcResponseData.data) {
           fetchedEpcData = epcResponseData.data;
-          console.log("=== EPC DATA FOUND ===");
-          console.log("Full EPC Response:", epcResponseData);
         } else {
-          console.log("=== NO EPC DATA FOUND ===");
           fetchedEpcData = null;
         }
       } catch (epcError) {
-        console.error('=== EPC LOOKUP ERROR ===');
         console.error('Error fetching EPC data:', epcError);
         fetchedEpcData = null;
       }
@@ -412,15 +348,12 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
         epcData: fetchedEpcData
       };
 
-      // Store the address data and EPC data
       setPendingAddressData(addressData);
       setEpcData(fetchedEpcData);
 
-      // If EPC data found, show EPC details screen
       if (fetchedEpcData) {
         setShowEpcDetails(true);
       } else {
-        // No EPC data, proceed directly
         onAddressSelected(addressData);
         setTimeout(() => {
           onNext();
@@ -429,7 +362,6 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
 
     } catch (error) {
       console.error('Error processing address:', error);
-      // Continue with basic address data even if eligibility check fails
       const basicAddressData = {
         formatted: formatAddressDisplay(address),
         postcode: address['Column 0'] || '',
@@ -454,7 +386,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
     }
   };
 
-  // Handle EPC back button (return to address selection)
+  // Handle EPC back button
   const handleEpcBack = () => {
     setShowEpcDetails(false);
     setEpcData(null);
@@ -508,7 +440,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
               onChange={handlePostcodeInput}
               onKeyPress={(e) => e.key === 'Enter' && findAddress()}
               placeholder="Enter your postcode eg: WS8 6BB"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pointer-events-auto text-black"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-black"
               disabled={isLoadingAddresses}
             />
             {postcodeError && (
@@ -519,7 +451,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
           <button
             onClick={findAddress}
             disabled={isLoadingAddresses}
-            className="w-full bg-[#000000] hover:bg-[#FFFFFF] text-white hover:text-black disabled:bg-gray-400 px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+            className="w-full bg-teal-600 hover:bg-teal-700 text-white disabled:bg-gray-400 px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
           >
             {isLoadingAddresses ? "Looking up..." : "Find Addresses"}
           </button>
@@ -528,7 +460,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
 
           <p 
             onClick={() => setShowManualEntry(true)}
-            className="text-xs text-blue-500 cursor-pointer hover:underline pointer-events-auto text-center mt-4"
+            className="text-xs text-blue-500 cursor-pointer hover:underline text-center mt-4"
           >
             Can't find your address? Enter manually
           </p>
@@ -537,7 +469,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
         <div className="space-y-4">
           <h3 className="font-semibold text-lg">Select your address:</h3>
           <div 
-            className="max-h-60 overflow-y-auto border border-gray-200 rounded-lg pointer-events-auto"
+            className="max-h-60 overflow-y-auto border border-gray-200 rounded-lg"
             style={{ 
               scrollbarWidth: 'thin',
               scrollbarColor: '#CBD5E0 #F7FAFC'
@@ -547,7 +479,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
               <button
                 key={index}
                 onClick={() => handleAddressSelect(address)}
-                className="w-full text-left px-4 py-3 border-b border-gray-200 last:border-b-0 hover:bg-blue-50 transition-colors duration-200 pointer-events-auto text-black block"
+                className="w-full text-left px-4 py-3 border-b border-gray-200 last:border-b-0 hover:bg-blue-50 transition-colors duration-200 text-black block"
               >
                 {formatAddressDisplay(address)}
               </button>
@@ -565,11 +497,10 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
             onClick={() => {
               setAddresses([]);
               setPostcode("");
-              setSelectedAddress(null);
               setShowEpcDetails(false);
               setEpcData(null);
             }}
-            className="w-full bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+            className="w-full bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-200"
           >
             Search Different Postcode
           </button>
@@ -582,7 +513,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
               value={manualAddress.house}
               onChange={(e) => setManualAddress(prev => ({ ...prev, house: e.target.value }))}
               placeholder="House Name / Number"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pointer-events-auto text-black"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-black"
             />
           </div>
 
@@ -592,7 +523,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
               value={manualAddress.street}
               onChange={(e) => setManualAddress(prev => ({ ...prev, street: e.target.value }))}
               placeholder="Street Address"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pointer-events-auto text-black"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-black"
             />
           </div>
 
@@ -602,7 +533,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
               value={manualAddress.town}
               onChange={(e) => setManualAddress(prev => ({ ...prev, town: e.target.value }))}
               placeholder="Town"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pointer-events-auto text-black"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-black"
             />
           </div>
 
@@ -612,13 +543,13 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
               value={manualAddress.postcode}
               onChange={(e) => setManualAddress(prev => ({ ...prev, postcode: e.target.value.toUpperCase() }))}
               placeholder="Postcode"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pointer-events-auto text-black"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-black"
             />
           </div>
 
           <button
             onClick={() => setShowManualEntry(false)}
-            className="w-full bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+            className="w-full bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-200"
           >
             Back to Postcode Search
           </button>
@@ -626,7 +557,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
           <button
             onClick={handleManualAddress}
             disabled={!isManualAddressValid()}
-            className="w-full bg-[#000000] hover:bg-[#FFFFFF] text-white hover:text-black disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+            className="w-full bg-teal-600 hover:bg-teal-700 text-white disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
           >
             Continue
           </button>

@@ -39,7 +39,7 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
       <h1 className="text-3xl md:text-4xl mb-4 font-extrabold text-center">
         Your account!
       </h1>
-      <p className="text-opacity-80 mb-6 text-center">
+      <p className="text-opacity-80 mb-6 text-center text-gray-600">
         These details are to facilitate your energy switch. We will never spam you. 
       </p>
       
@@ -51,7 +51,7 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
             onChange={(e) => handleInputChange('firstName', e.target.value)}
             placeholder="First Name"
             required
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pointer-events-auto text-black"
+            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-black"
           />
           <input
             type="text"
@@ -59,7 +59,7 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
             onChange={(e) => handleInputChange('lastName', e.target.value)}
             placeholder="Last Name"
             required
-            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pointer-events-auto text-black"
+            className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-black"
           />
         </div>
         
@@ -69,7 +69,7 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
           onChange={(e) => handleInputChange('email', e.target.value)}
           placeholder="Email Address"
           required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pointer-events-auto text-black"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-black"
         />
         
         <input
@@ -78,18 +78,28 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
           onChange={(e) => handleInputChange('phone', e.target.value)}
           placeholder="Phone Number"
           required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pointer-events-auto text-black"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-black"
         />
         
         {addressData && addressData.formatted && (
-          <div className="bg-gray-100 p-3 rounded-lg">
-            <p className="text-sm text-gray-600">Selected address:</p>
-            <p className="font-medium text-black">{addressData.formatted}</p>
+          <div className="bg-gray-50 p-4 rounded-lg border">
+            <p className="text-sm text-gray-600 mb-1">Selected address:</p>
+            <p className="font-medium text-black text-sm">{addressData.formatted}</p>
             {addressData.ecoEligible && (
-              <p className="text-sm text-green-600 mt-1">✓ ECO Scheme Eligible</p>
+              <p className="text-sm text-green-600 mt-2 flex items-center">
+                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                ECO Scheme Eligible
+              </p>
             )}
             {addressData.baxterKellyEligible && (
-              <p className="text-sm text-green-600 mt-1">✓ Baxter Kelly Eligible</p>
+              <p className="text-sm text-green-600 mt-1 flex items-center">
+                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Baxter Kelly Eligible
+              </p>
             )}
           </div>
         )}
@@ -98,15 +108,15 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
           <button
             type="button"
             onClick={onBack}
-            className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+            className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
           >
             Back
           </button>
           <button
             onClick={handleSubmit}
-            className="flex-1 bg-[#4A9B8E] hover:bg-[#3d8a7b] text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+            className="flex-1 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
           >
-          Confirm & Continue
+            Confirm & Continue
           </button>
         </div>
       </div>
