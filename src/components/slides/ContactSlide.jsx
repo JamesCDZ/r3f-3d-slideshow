@@ -40,7 +40,7 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
         Your account!
       </h1>
       <p className="text-opacity-80 mb-6 text-center text-gray-600">
-        These details are to facilitate your energy switch. We will never spam you. 
+        These details are to facilitate your energy switch.<b> We will never spam you.</b> 
       </p>
       
       <div className="space-y-4">
