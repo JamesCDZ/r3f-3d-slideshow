@@ -98,7 +98,7 @@ export const Overlay = () => {
 
       {/* Progress indicator */}
       <div className="max-w-4xl mx-auto px-4 py-6">
-        <div className="flex items-center justify-center space-x-4 mb-8">
+        <div className="flex items-center justify-center space-x-4 mb-0">
           {[0, 1, 2, 3].map((step) => (
             <div key={step} className="flex items-center">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors duration-300 ${
