@@ -227,6 +227,20 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
         marketingOptOut: marketingOptOut,
       };
       
+      // Trigger GTM leadFormSubmission event
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'leadFormSubmission',
+        firstName: finalFormData.firstName,
+        lastName: finalFormData.lastName,
+        email: finalFormData.email,
+        phone: finalFormData.phone,
+        address: `${finalFormData.street}, ${finalFormData.town}, ${finalFormData.postcode}`,
+        residentialStatus: 'Owner',
+      });
+      
+      console.log('GTM leadFormSubmission event triggered');
+      
       // Transform data to match your existing Nuxt API format
       const apiPayload = transformFormDataForAPI(finalFormData);
       
