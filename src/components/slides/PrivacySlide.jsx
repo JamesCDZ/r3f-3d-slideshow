@@ -95,8 +95,34 @@ const DealCard = ({ deal, index, isVisible }) => (
   </div>
 );
 
+// Extract URL parameters for campaign tracking
+const getUrlParams = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  return {
+    source: urlParams.get('source') || urlParams.get('utm_source') || 'energy-lab-website',
+    click_id: urlParams.get('click_id') || urlParams.get('clickid') || urlParams.get('gclid') || '',
+    mkwid: urlParams.get('mkwid') || '',
+    cpgnid: urlParams.get('cpgnid') || '',
+    gadSource: urlParams.get('gadsource') || urlParams.get('gad_source') || '',
+    pcrid: urlParams.get('pcrid') || '',
+    pdv: urlParams.get('pdv') || '',
+    pkw: urlParams.get('pkw') || urlParams.get('keyword') || '',
+    pmt: urlParams.get('pmt') || '',
+    pgrid: urlParams.get('pgrid') || '',
+    ptaid: urlParams.get('ptaid') || '',
+    msclkid: urlParams.get('msclkid') || '',
+    utm_campaign: urlParams.get('utm_campaign') || '',
+    utm_medium: urlParams.get('utm_medium') || '',
+    utm_term: urlParams.get('utm_term') || '',
+    utm_content: urlParams.get('utm_content') || '',
+    fbclid: urlParams.get('fbclid') || ''
+  };
+};
+
 // Transform form data to match your existing Nuxt API format
 const transformFormDataForAPI = (formData) => {
+  const urlParams = getUrlParams();
+  
   return {
     // Address information
     address: {
@@ -132,22 +158,32 @@ const transformFormDataForAPI = (formData) => {
     gasPayment: 'Direct Debit',
     residentialStatus: 'Owner',
     
-    // Campaign tracking
-    source: 'energy-lab-website',
-    keyword: 'energy-comparison',
+    // Campaign tracking - now using URL parameters
+    source: urlParams.source,
+    keyword: urlParams.pkw || urlParams.utm_term || 'energy-comparison',
     
-    // Additional tracking parameters (if available from URL params)
-    mkwid: formData.mkwid || null,
-    cpgnid: formData.cpgnid || null,
-    gadSource: formData.gadSource || null,
-    pcrid: formData.pcrid || null,
-    pdv: formData.pdv || null,
-    pkw: formData.pkw || null,
-    pmt: formData.pmt || null,
-    pgrid: formData.pgrid || null,
-    ptaid: formData.ptaid || null,
-    msclkid: formData.msclkid || null,
-    click_id: formData.click_id || null
+    // All tracking parameters from URL
+    mkwid: urlParams.mkwid,
+    cpgnid: urlParams.cpgnid,
+    gadSource: urlParams.gadSource,
+    pcrid: urlParams.pcrid,
+    pdv: urlParams.pdv,
+    pkw: urlParams.pkw,
+    pmt: urlParams.pmt,
+    pgrid: urlParams.pgrid,
+    ptaid: urlParams.ptaid,
+    msclkid: urlParams.msclkid,
+    click_id: urlParams.click_id,
+    
+    // UTM parameters
+    utm_campaign: urlParams.utm_campaign,
+    utm_medium: urlParams.utm_medium,
+    utm_source: urlParams.source,
+    utm_term: urlParams.utm_term,
+    utm_content: urlParams.utm_content,
+    
+    // Social media click IDs
+    fbclid: urlParams.fbclid
   };
 };
 
@@ -235,9 +271,17 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
       {showSuccess && (
         <div className="animate-fade-in-up text-center py-8">
           <div className="mb-6">
+            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
             <h1 className="text-2xl md:text-3xl font-extrabold text-green-600 mb-2">
               Thank You!
             </h1>
+            <p className="text-lg text-gray-700 mb-2">
+              Your details have been submitted successfully
+            </p>
           </div>
           
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
@@ -286,6 +330,24 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
                 </li>
               )}
             </ul>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-sm text-gray-600 mb-4">
+              Can't wait? You can also call us directly:
+            </p>
+            <a 
+              href="tel:08081783567" 
+              className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 pointer-events-auto"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              0808 178 3567
+            </a>
+            <p className="text-xs text-gray-500 mt-2">
+              Lines open Mon-Fri 9am-8pm, Sat 9am-5pm
+            </p>
           </div>
         </div>
       )}
