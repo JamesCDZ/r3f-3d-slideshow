@@ -59,7 +59,7 @@ const DealCard = ({ deal, index, isVisible }) => (
           <span className="text-xs font-medium ml-1 text-gray-600">{deal.rating}</span>
         </div>
         {deal.greenEnergy && (
-          <span className="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full whitespace-nowrap">
+          <span className="bg-green-100 text-[#33aae1] text-xs px-2 py-0.5 rounded-full whitespace-nowrap">
             🌱 Green
           </span>
         )}
@@ -303,7 +303,7 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
           
           <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
             <h4 className="font-semibold text-green-800 mb-2">What happens next?</h4>
-            <ul className="text-sm text-green-700 space-y-1 text-left">
+            <ul className="text-sm text-[#33aae1] space-y-1 text-left">
               <li className="flex items-start">
                 <span className="text-green-500 mr-2 mt-0.5">✓</span>
                 We'll discuss the best energy deals for your property
@@ -344,7 +344,7 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
               We found {mockDeals.length} amazing deals for your home
             </p>
             <div className="flex items-center justify-center mt-2">
-              <div className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
+              <div className="bg-green-100 text-[#33aae1] px-3 py-1 rounded-full text-xs font-medium">
                 Potential savings: up to £{Math.max(...mockDeals.map(d => d.savings))}/year
               </div>
             </div>

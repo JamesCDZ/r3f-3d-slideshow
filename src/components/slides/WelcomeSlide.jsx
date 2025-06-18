@@ -11,7 +11,7 @@ export const WelcomeSlide = ({ onNext }) => {
       {/* Main value proposition */}
       <p className="text-base md:text-lg opacity-90 mb-2 max-w-2xl mx-auto">
         We use EPC certificates and real-time pricing data to find deals tailored to your home.
-        <span className="font-semibold text-green-700"> Save up to £500+ per year.</span>
+        <span className="font-semibold text-[#33aae1]"> Save up to £500+ per year.</span>
       </p>
 
       {/* Process Steps - Responsive Layout */}
@@ -125,7 +125,7 @@ export const WelcomeSlide = ({ onNext }) => {
       <div className="space-y-2">
         <button
           onClick={onNext}
-          className="bg-[#33aae1] hover:from-green-700 hover:to-green-600 text-white px-8 py-3 rounded-lg font-bold transition-all duration-200 pointer-events-auto shadow-lg hover:shadow-xl"
+          className="bg-[#33aae1] hover:from-[#33aae1] hover:to-green-600 text-white px-8 py-3 rounded-lg font-bold transition-all duration-200 pointer-events-auto shadow-lg hover:shadow-xl"
         >
           Start Step 1: Property Information
         </button>
