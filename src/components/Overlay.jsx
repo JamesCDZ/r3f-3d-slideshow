@@ -101,7 +101,7 @@ export const Overlay = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-        <div className="max-w-4xl mx-auto px-4 py-4">
+        <div className="max-w-4xl mx-auto px-4 py-1">
           <div className="flex justify-center">
             <img 
               src="/logo2d2.png" 
