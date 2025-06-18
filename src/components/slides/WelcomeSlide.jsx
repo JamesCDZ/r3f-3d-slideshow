@@ -138,7 +138,7 @@ export const WelcomeSlide = ({ onNext }) => {
       {/* Process indicator */}
       <div className="mt-4 inline-flex items-center gap-2 bg-blue-100/80 backdrop-blur-sm px-3 py-1 rounded-full text-xs">
         <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
-        <span className="font-medium text-blue-800">3 simple steps to savings</span>
+        <span className="font-medium text-blue-800">5 simple steps to savings</span>
       </div>
     </div>
   );
