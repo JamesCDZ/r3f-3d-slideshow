@@ -219,7 +219,7 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
         marketingOptOut: marketingOptOut,
       };
       
-      Trigger GTM leadFormSubmission event
+      // Trigger GTM leadFormSubmission event
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: 'leadFormSubmission',
