@@ -213,31 +213,31 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
       }
       
       // Fallback to mock addresses for demo
-      const mockAddresses = [
-        {
-          'Column7': 'Ashley House',
-          'Column6': '123',
-          'Column4': 'Main Street',
-          'Column1': 'London',
-          'Column 0': postcode,
-          'Column 12': '123456789'
-        },
-        {
-          'Column6': '456',
-          'Column4': 'Oak Avenue',
-          'Column1': 'London', 
-          'Column 0': postcode,
-          'Column 12': '987654321'
-        },
-        {
-          'Column7': 'The Old Mill',
-          'Column4': 'High Street',
-          'Column1': 'London',
-          'Column 0': postcode,
-          'Column 12': '555666777'
-        }
-      ];
-      setAddresses(mockAddresses);
+      // const mockAddresses = [
+      //   {
+      //     'Column7': 'Ashley House',
+      //     'Column6': '123',
+      //     'Column4': 'Main Street',
+      //     'Column1': 'London',
+      //     'Column 0': postcode,
+      //     'Column 12': '123456789'
+      //   },
+      //   {
+      //     'Column6': '456',
+      //     'Column4': 'Oak Avenue',
+      //     'Column1': 'London', 
+      //     'Column 0': postcode,
+      //     'Column 12': '987654321'
+      //   },
+      //   {
+      //     'Column7': 'The Old Mill',
+      //     'Column4': 'High Street',
+      //     'Column1': 'London',
+      //     'Column 0': postcode,
+      //     'Column 12': '555666777'
+      //   }
+      // ];
+      // setAddresses(mockAddresses);
       
     } catch (error) {
       console.error('Address lookup error:', error);
