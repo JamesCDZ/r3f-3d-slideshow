@@ -69,7 +69,7 @@ const EPCCard = ({ epcData, onConfirm, onBack }) => {
           {epcData.features?.mainFuel && (
             <div className="text-center bg-green-50 rounded p-2">
               <p className="text-gray-600">Main Fuel</p>
-              <p className="font-semibold text-[#33aae1] mt-1">{epcData.features.mainFuel}</p>
+              <p className="font-semibold text-black mt-1">{epcData.features.mainFuel}</p>
             </div>
           )}
           
