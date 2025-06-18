@@ -28,12 +28,12 @@ const providers = [
     <div className="text-center max-w-3xl mx-auto">
       {/* Compelling subheading */}
       <h2 className="text-lg md:text-xl mb-2 font-semibold text-gray-800">
-        Your Current Provider
+      <b>Your Current Provider</b>
       </h2>
       
       {/* Main value proposition */}
       <p className="text-base md:text-lg opacity-90 mb-6 max-w-2xl mx-auto">
-       <b> Who is your current energy provider?</b>
+    Who is your current energy provider?
       </p>
 
       {/* Process Steps - Responsive Layout */}
