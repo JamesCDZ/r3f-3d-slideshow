@@ -127,7 +127,7 @@ export const WelcomeSlide = ({ onNext }) => {
           onClick={onNext}
           className="bg-[#33aae1] hover:from-[#33aae1] hover:to-green-600 text-white px-8 py-3 rounded-lg font-bold transition-all duration-200 pointer-events-auto shadow-lg hover:shadow-xl"
         >
-          Start Step 1: Property Information
+          Start Step 1: Data Analysis
         </button>
         
         <p className="text-xs text-gray-600">
