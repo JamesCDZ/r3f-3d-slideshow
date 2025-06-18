@@ -6,7 +6,7 @@ const LoadingDots = () => (
       {[1, 2, 3].map((dot) => (
         <div
           key={dot}
-          className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
+          className="w-2 h-2 bg-[#33aae1] rounded-full animate-bounce"
           style={{
             animationDelay: `${(dot - 1) * 0.2}s`,
             animationDuration: '0.5s'
