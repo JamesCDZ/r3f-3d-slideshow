@@ -54,6 +54,15 @@ export const Overlay = () => {
     console.log("Form submitted:", finalFormData);
   };
 
+  // Map actual steps to progress steps (0-2 map to 0, 3 maps to 1, 4 maps to 2)
+  const getProgressStep = (actualStep) => {
+    if (actualStep <= 2) return 0;
+    if (actualStep === 3) return 1;
+    return 2;
+  };
+
+  const progressStep = getProgressStep(currentStep);
+
   const renderStepContent = () => {
     switch (currentStep) {
       case 0:
@@ -95,7 +104,7 @@ export const Overlay = () => {
     }
   };
 
-  const stepLabels = ['Welcome', 'Provider', 'Address', 'Contact', 'Privacy'];
+  const stepLabels = ['Setup', 'Contact', 'Privacy'];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
@@ -116,18 +125,18 @@ export const Overlay = () => {
       <div className="max-w-4xl mx-auto px-4 py-6">
         {/* Desktop progress indicator */}
         <div className="hidden md:flex items-center justify-center space-x-5 mb-0">
-          {[0, 1, 2, 3, 4].map((step) => (
+          {[0, 1, 2].map((step) => (
             <div key={step} className="flex items-center">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors duration-300 ${
-                currentStep >= step 
+                progressStep >= step 
                   ? 'bg-[#33aae1] text-white' 
                   : 'bg-gray-200 text-gray-500'
               }`}>
                 {step + 1}
               </div>
-              {step < 4 && (
+              {step < 2 && (
                 <div className={`w-12 h-1 mx-2 transition-colors duration-300 ${
-                  currentStep > step ? 'bg-[#33aae1]' : 'bg-gray-200'
+                  progressStep > step ? 'bg-[#33aae1]' : 'bg-gray-200'
                 }`} />
               )}
             </div>
@@ -139,13 +148,13 @@ export const Overlay = () => {
           {/* Progress bar */}
           <div className="mb-4">
             <div className="flex justify-between text-xs text-gray-500 mb-2">
-              <span>Step {currentStep + 1} of 5</span>
-              <span>{Math.round(((currentStep + 1) / 5) * 100)}% Complete</span>
+              <span>Step {progressStep + 1} of 3</span>
+              <span>{Math.round(((progressStep + 1) / 3) * 100)}% Complete</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
                 className="bg-[#33aae1] h-2 rounded-full transition-all duration-300 ease-out"
-                style={{ width: `${((currentStep + 1) / 5) * 100}%` }}
+                style={{ width: `${((progressStep + 1) / 3) * 100}%` }}
               />
             </div>
           </div>
@@ -154,10 +163,10 @@ export const Overlay = () => {
           {/* <div className="text-center">
             <div className="inline-flex items-center space-x-2 bg-white rounded-full px-4 py-2 shadow-sm border">
               <div className="w-6 h-6 rounded-full bg-[#33aae1] text-white flex items-center justify-center text-sm font-bold">
-                {currentStep + 1}
+                {progressStep + 1}
               </div>
               <span className="text-sm font-medium text-gray-700">
-                {stepLabels[currentStep]}
+                {stepLabels[progressStep]}
               </span>
             </div>
           </div> */}
