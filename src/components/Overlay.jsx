@@ -3,6 +3,7 @@ import { WelcomeSlide } from './slides/WelcomeSlide';
 import { PostcodeSlide } from './slides/PostcodeSlide';
 import { ContactSlide } from './slides/ContactSlide';
 import { PrivacySlide } from './slides/PrivacySlide';
+import { CurrentProvider } from './slides/CurrentProvider';
 
 export const Overlay = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -25,7 +26,8 @@ export const Overlay = () => {
     baxterKellyEligible: false,
     product_id: false,
     des_id: false,
-    epcData: null
+    epcData: null,
+    CurrentProvider: null,
   });
 
   const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 3));
@@ -33,6 +35,12 @@ export const Overlay = () => {
 
   const handleAddressSelected = (addressData) => {
     setFormData(prev => ({ ...prev, ...addressData }));
+    console.log(formData)
+  };
+
+  const handleSupplierSelected = (supplierData) => {
+    setFormData(prev => ({ ...prev, ...supplierData }));
+    console.log(formData)
   };
 
   const handleContactSubmit = (contactData) => {
@@ -51,6 +59,11 @@ export const Overlay = () => {
         return <WelcomeSlide onNext={nextStep} />;
 
       case 1:
+        return <CurrentProvider 
+        onNext={nextStep}
+        onSupplierSelected={handleSupplierSelected} />;
+
+      case 2:
         return (
           <PostcodeSlide 
             onNext={nextStep} 
@@ -58,7 +71,7 @@ export const Overlay = () => {
           />
         );
 
-      case 2:
+      case 3:
         return (
           <ContactSlide 
             onSubmit={handleContactSubmit}
@@ -67,7 +80,7 @@ export const Overlay = () => {
           />
         );
 
-      case 3:
+      case 4:
         return (
           <PrivacySlide 
             onSubmit={handleFinalSubmit}
@@ -98,8 +111,8 @@ export const Overlay = () => {
 
       {/* Progress indicator */}
       <div className="max-w-4xl mx-auto px-4 py-6">
-        <div className="flex items-center justify-center space-x-4 mb-0">
-          {[0, 1, 2, 3].map((step) => (
+        <div className="flex items-center justify-center space-x-5 mb-0">
+          {[0, 1, 2, 3, 4].map((step) => (
             <div key={step} className="flex items-center">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors duration-300 ${
                 currentStep >= step 
@@ -108,7 +121,7 @@ export const Overlay = () => {
               }`}>
                 {step + 1}
               </div>
-              {step < 3 && (
+              {step < 4 && (
                 <div className={`w-12 h-1 mx-2 transition-colors duration-300 ${
                   currentStep > step ? 'bg-teal-600' : 'bg-gray-200'
                 }`} />
