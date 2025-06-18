@@ -30,7 +30,7 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
       alert("Please enter a valid email address");
       return;
     }
-    
+    console.log(contactForm)
     onSubmit(contactForm);
   };
 
