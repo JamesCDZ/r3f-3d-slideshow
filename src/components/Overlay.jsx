@@ -151,7 +151,7 @@ export const Overlay = () => {
           </div>
           
           {/* Current step indicator */}
-          <div className="text-center">
+          {/* <div className="text-center">
             <div className="inline-flex items-center space-x-2 bg-white rounded-full px-4 py-2 shadow-sm border">
               <div className="w-6 h-6 rounded-full bg-teal-600 text-white flex items-center justify-center text-sm font-bold">
                 {currentStep + 1}
@@ -160,7 +160,7 @@ export const Overlay = () => {
                 {stepLabels[currentStep]}
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
