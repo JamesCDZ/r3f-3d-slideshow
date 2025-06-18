@@ -3,7 +3,7 @@ import React from 'react';
 export const CurrentProvider = ({ onNext, onSupplierSelected }) => {
 
 const onButtonSelected = (e) => {
-  const value = e.target.value.toUpperCase();
+  const value = e.target.value;
   console.log(value)
   onSupplierSelected({CurrentProvider: value})
   onNext()
@@ -31,11 +31,11 @@ const onButtonSelected = (e) => {
         {/* Desktop: Horizontal Layout */}
         <div className="hidden md:flex items-center justify-center">
 
-        <button value={"ScottishPower"} onClick={onButtonSelected}>
+        <button value={"Scottish Power"} onClick={onButtonSelected}>
           Scottish Power
         </button>
 
-        <button value={"BritishGas"} onClick={onButtonSelected}>
+        <button value={"British Gas"} onClick={onButtonSelected}>
           British Gas
         </button>
 
