@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { CurrentProvider } from './CurrentProvider';
 
 // Mock deals data
 const mockDeals = [
@@ -166,6 +167,7 @@ const transformFormDataForAPI = (formData) => {
     ptaid: urlParams.ptaid,
     msclkid: urlParams.msclkid,
     click_id: urlParams.click_id,
+    CurrentProvider: formData.CurrentProvider,
     
     utm_campaign: urlParams.utm_campaign,
     utm_medium: urlParams.utm_medium,
