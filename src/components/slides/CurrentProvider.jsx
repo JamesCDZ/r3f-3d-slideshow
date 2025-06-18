@@ -33,7 +33,7 @@ const providers = [
       
       {/* Main value proposition */}
       <p className="text-base md:text-lg opacity-90 mb-6 max-w-2xl mx-auto">
-        Who is your current energy provider?
+       <b> Who is your current energy provider?</b>
       </p>
 
       {/* Process Steps - Responsive Layout */}

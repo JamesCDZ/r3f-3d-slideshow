@@ -5,7 +5,7 @@ export const WelcomeSlide = ({ onNext }) => {
     <div className="text-center max-w-3xl mx-auto">
       {/* Compelling subheading */}
       <h2 className="text-lg md:text-xl mb-2 font-semibold text-gray-800">
-        Data Driven Energy Deals
+       <b> Data Driven Energy Deals</b>
       </h2>
       
       {/* Main value proposition */}
