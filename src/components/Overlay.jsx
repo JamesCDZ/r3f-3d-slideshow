@@ -95,6 +95,8 @@ export const Overlay = () => {
     }
   };
 
+  const stepLabels = ['Welcome', 'Provider', 'Address', 'Contact', 'Privacy'];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
       {/* Header */}
@@ -112,7 +114,8 @@ export const Overlay = () => {
 
       {/* Progress indicator */}
       <div className="max-w-4xl mx-auto px-4 py-6">
-        <div className="flex items-center justify-center space-x-5 mb-0">
+        {/* Desktop progress indicator */}
+        <div className="hidden md:flex items-center justify-center space-x-5 mb-0">
           {[0, 1, 2, 3, 4].map((step) => (
             <div key={step} className="flex items-center">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors duration-300 ${
@@ -129,6 +132,35 @@ export const Overlay = () => {
               )}
             </div>
           ))}
+        </div>
+
+        {/* Mobile progress indicator */}
+        <div className="md:hidden">
+          {/* Progress bar */}
+          <div className="mb-4">
+            <div className="flex justify-between text-xs text-gray-500 mb-2">
+              <span>Step {currentStep + 1} of 5</span>
+              <span>{Math.round(((currentStep + 1) / 5) * 100)}% Complete</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div 
+                className="bg-teal-600 h-2 rounded-full transition-all duration-300 ease-out"
+                style={{ width: `${((currentStep + 1) / 5) * 100}%` }}
+              />
+            </div>
+          </div>
+          
+          {/* Current step indicator */}
+          <div className="text-center">
+            <div className="inline-flex items-center space-x-2 bg-white rounded-full px-4 py-2 shadow-sm border">
+              <div className="w-6 h-6 rounded-full bg-teal-600 text-white flex items-center justify-center text-sm font-bold">
+                {currentStep + 1}
+              </div>
+              <span className="text-sm font-medium text-gray-700">
+                {stepLabels[currentStep]}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
