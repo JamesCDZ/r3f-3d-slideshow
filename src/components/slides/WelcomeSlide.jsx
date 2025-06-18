@@ -125,7 +125,7 @@ export const WelcomeSlide = ({ onNext }) => {
       <div className="space-y-2">
         <button
           onClick={onNext}
-          className="bg-[#33aae1] hover:from-[#33aae1] hover:to-green-600 text-white px-8 py-3 rounded-lg font-bold transition-all duration-200 pointer-events-auto shadow-lg hover:shadow-xl"
+          className="bg-[#33aae1] hover:bg-black text-white px-8 py-3 rounded-lg font-bold transition-all duration-200 pointer-events-auto shadow-lg hover:shadow-xl"
         >
           Start Step 1: Data Analysis
         </button>
