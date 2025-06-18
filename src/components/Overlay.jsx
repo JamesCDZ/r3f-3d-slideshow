@@ -104,8 +104,8 @@ export const Overlay = () => {
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex justify-center">
             <img 
-              src="/logo.png" 
-              className="h-12"
+              src="/logo2d2.png" 
+              className="h-16"
               alt="Energy Lab"
             />
           </div>
