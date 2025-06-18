@@ -149,8 +149,8 @@ const transformFormDataForAPI = (formData) => {
     serviceType: 'both',
     electricitySupplier: 'Unknown',
     gasSupplier: 'Unknown',
-    electricityPayment: 'Direct Debit',
-    gasPayment: 'Direct Debit',
+    electricityPayment: '',
+    gasPayment: '',
     residentialStatus: 'Owner',
     
     source: urlParams.source,
