@@ -57,7 +57,7 @@ export const WelcomeSlide = ({ onNext }) => {
               </svg>
             </div>
             <h3 className="font-semibold text-gray-800 text-sm">Privacy Settings</h3>
-            <p className="text-gray-700 text-xs">Choose your data preferences in accordance with GDPR</p>
+            <p className="text-gray-700 text-xs">Data preferences in accordance with GDPR</p>
           </div>
         </div>
 
@@ -116,7 +116,7 @@ export const WelcomeSlide = ({ onNext }) => {
               </svg>
             </div>
             <h3 className="font-semibold text-gray-800 text-sm">Privacy Settings</h3>
-            <p className="text-gray-700 text-xs">Choose your data preferences in accordance with GDPR</p>
+            <p className="text-gray-700 text-xs">Preferences in line with GDPR</p>
           </div>
         </div>
       </div>
