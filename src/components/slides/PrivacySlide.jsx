@@ -447,7 +447,7 @@ export const PrivacySlide = ({ onSubmit, onBack, formData }) => {
             </button>
             <button
               onClick={handleFinalSubmit}
-              className="flex-1 bg-[#33aae1] hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-[#33aae1] hover:bg-black text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isSubmitting}
             >
               {isSubmitting ? (

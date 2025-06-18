@@ -105,7 +105,7 @@ export const Overlay = () => {
           <div className="flex justify-center">
             <img 
               src="/logo2d2.png" 
-              className="h-16"
+              className="h-16 hover:shadow-xl"
               alt="Energy Lab"
             />
           </div>
