@@ -114,7 +114,7 @@ export const ContactSlide = ({ onSubmit, onBack, addressData }) => {
           </button>
           <button
             onClick={handleSubmit}
-            className="flex-1 bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+            className="flex-1 bg-[#33aae1] hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
           >
             Confirm & Continue
           </button>

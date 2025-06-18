@@ -98,7 +98,7 @@ const EPCCard = ({ epcData, onConfirm, onBack }) => {
         </button>
         <button
           onClick={onConfirm}
-          className="flex-1 bg-teal-600 hover:bg-teal-700 text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200 text-sm"
+          className="flex-1 bg-[#33aae1] hover:bg-teal-700 text-white px-4 py-3 rounded-lg font-semibold transition-colors duration-200 text-sm"
         >
           Confirm & Continue
         </button>
@@ -451,7 +451,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
           <button
             onClick={findAddress}
             disabled={isLoadingAddresses}
-            className="w-full bg-teal-600 hover:bg-teal-700 text-white disabled:bg-gray-400 px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+            className="w-full bg-[#33aae1] hover:bg-teal-700 text-white disabled:bg-gray-400 px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
           >
             {isLoadingAddresses ? "Looking up..." : "Find Addresses"}
           </button>
@@ -557,7 +557,7 @@ export const PostcodeSlide = ({ onNext, onAddressSelected }) => {
           <button
             onClick={handleManualAddress}
             disabled={!isManualAddressValid()}
-            className="w-full bg-teal-600 hover:bg-teal-700 text-white disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
+            className="w-full bg-[#33aae1] hover:bg-teal-700 text-white disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
           >
             Continue
           </button>

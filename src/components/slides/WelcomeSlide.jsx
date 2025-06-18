@@ -20,7 +20,7 @@ export const WelcomeSlide = ({ onNext }) => {
         <div className="flex flex-col gap-4 md:hidden max-w-sm mx-auto">
           {/* Step 1 */}
           <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-black md:border-white/40 relative">
-            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#4a9b8d] text-white rounded-full flex items-center justify-center text-xs font-bold">
+            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#33aae1] text-white rounded-full flex items-center justify-center text-xs font-bold">
               1
             </div>
             <div className="text-lg mb-1 w-[30px] mx-auto">
@@ -34,7 +34,7 @@ export const WelcomeSlide = ({ onNext }) => {
           
           {/* Step 2 */}
           <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-black md:border-white/40 relative">
-            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#4a9b8d] text-white rounded-full flex items-center justify-center text-xs font-bold">
+            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#33aae1] text-white rounded-full flex items-center justify-center text-xs font-bold">
               2
             </div>
             <div className="text-lg mb-1 w-[30px] mx-auto">
@@ -48,7 +48,7 @@ export const WelcomeSlide = ({ onNext }) => {
           
           {/* Step 3 */}
           <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-black md:border-white/40 relative">
-            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#4a9b8d] text-white rounded-full flex items-center justify-center text-xs font-bold">
+            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#33aae1] text-white rounded-full flex items-center justify-center text-xs font-bold">
               3
             </div>
             <div className="text-lg mb-1 w-[30px] mx-auto">
@@ -65,7 +65,7 @@ export const WelcomeSlide = ({ onNext }) => {
         <div className="hidden md:flex items-center justify-center">
           {/* Step 1 */}
           <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-white/40 relative flex-1 max-w-[200px]">
-            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#4a9b8d] text-white rounded-full flex items-center justify-center text-xs font-bold">
+            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#33aae1] text-white rounded-full flex items-center justify-center text-xs font-bold">
               1
             </div>
             <div className="text-lg mb-1 w-[30px] mx-auto">
@@ -79,14 +79,14 @@ export const WelcomeSlide = ({ onNext }) => {
           
           {/* Arrow between step 1 and 2 */}
           <div className="flex-shrink-0 mx-4">
-            <svg className="w-6 h-6 text-[#4a9b8d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-[#33aae1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </div>
           
           {/* Step 2 */}
           <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-white/40 relative flex-1 max-w-[200px]">
-            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#4a9b8d] text-white rounded-full flex items-center justify-center text-xs font-bold">
+            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#33aae1] text-white rounded-full flex items-center justify-center text-xs font-bold">
               2
             </div>
             <div className="text-lg mb-1 w-[30px] mx-auto">
@@ -100,14 +100,14 @@ export const WelcomeSlide = ({ onNext }) => {
           
           {/* Arrow between step 2 and 3 */}
           <div className="flex-shrink-0 mx-4">
-            <svg className="w-6 h-6 text-[#4a9b8d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-[#33aae1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </div>
           
           {/* Step 3 */}
           <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-white/40 relative flex-1 max-w-[200px]">
-            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#4a9b8d] text-white rounded-full flex items-center justify-center text-xs font-bold">
+            <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#33aae1] text-white rounded-full flex items-center justify-center text-xs font-bold">
               3
             </div>
             <div className="text-lg mb-1 w-[30px] mx-auto">
@@ -125,7 +125,7 @@ export const WelcomeSlide = ({ onNext }) => {
       <div className="space-y-2">
         <button
           onClick={onNext}
-          className="bg-[#4a9b8d] hover:from-green-700 hover:to-green-600 text-white px-8 py-3 rounded-lg font-bold transition-all duration-200 pointer-events-auto shadow-lg hover:shadow-xl"
+          className="bg-[#33aae1] hover:from-green-700 hover:to-green-600 text-white px-8 py-3 rounded-lg font-bold transition-all duration-200 pointer-events-auto shadow-lg hover:shadow-xl"
         >
           Start Step 1: Property Information
         </button>
